@@ -1,0 +1,198 @@
+warning: parser/current is loading parser/ruby23, which recognizes
+warning: 2.3.6-compliant syntax, but you are running 2.3.1.
+warning: please see https://github.com/whitequark/parser#compatibility-with-ruby-mri.
+The PGconn, PGresult, and PGError constants are deprecated, and will be
+removed as of version 1.0.
+
+You should use PG::Connection, PG::Result, and PG::Error instead, respectively.
+
+Called from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:240:in `load_dependency'
+/var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `initialize': could not connect to server: Connection refused (PG::ConnectionBad)
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `new'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/postgresql_adapter.rb:651:in `connect'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/postgresql_adapter.rb:242:in `initialize'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `new'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/postgresql_adapter.rb:44:in `postgresql_connection'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:438:in `new_connection'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:448:in `checkout_new_connection'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:422:in `acquire_connection'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:349:in `block in checkout'
+	from /usr/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:348:in `checkout'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:263:in `block in connection'
+	from /usr/lib/ruby/2.3.0/monitor.rb:214:in `mon_synchronize'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:262:in `connection'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_adapters/abstract/connection_pool.rb:571:in `retrieve_connection'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_handling.rb:113:in `retrieve_connection'
+	from /var/lib/gems/2.3.0/gems/activerecord-4.2.10/lib/active_record/connection_handling.rb:87:in `connection'
+	from /home/pc02/consul/config/initializers/devise.rb:15:in `block in <top (required)>'
+	from /var/lib/gems/2.3.0/gems/devise-3.5.10/lib/devise.rb:282:in `setup'
+	from /home/pc02/consul/config/initializers/devise.rb:3:in `<top (required)>'
+	from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:268:in `load'
+	from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:268:in `block in load'
+	from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:240:in `load_dependency'
+	from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:268:in `load'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/engine.rb:652:in `block in load_config_initializer'
+	from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/notifications.rb:166:in `instrument'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/engine.rb:651:in `load_config_initializer'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/engine.rb:616:in `block (2 levels) in <class:Engine>'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/engine.rb:615:in `each'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/engine.rb:615:in `block in <class:Engine>'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/initializable.rb:30:in `instance_exec'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/initializable.rb:30:in `run'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/initializable.rb:55:in `block in run_initializers'
+	from /usr/lib/ruby/2.3.0/tsort.rb:228:in `block in tsort_each'
+	from /usr/lib/ruby/2.3.0/tsort.rb:350:in `block (2 levels) in each_strongly_connected_component'
+	from /usr/lib/ruby/2.3.0/tsort.rb:422:in `block (2 levels) in each_strongly_connected_component_from'
+	from /usr/lib/ruby/2.3.0/tsort.rb:431:in `each_strongly_connected_component_from'
+	from /usr/lib/ruby/2.3.0/tsort.rb:421:in `block in each_strongly_connected_component_from'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/initializable.rb:44:in `each'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/initializable.rb:44:in `tsort_each_child'
+	from /usr/lib/ruby/2.3.0/tsort.rb:415:in `call'
+	from /usr/lib/ruby/2.3.0/tsort.rb:415:in `each_strongly_connected_component_from'
+	from /usr/lib/ruby/2.3.0/tsort.rb:349:in `block in each_strongly_connected_component'
+	from /usr/lib/ruby/2.3.0/tsort.rb:347:in `each'
+	from /usr/lib/ruby/2.3.0/tsort.rb:347:in `call'
+	from /usr/lib/ruby/2.3.0/tsort.rb:347:in `each_strongly_connected_component'
+	from /usr/lib/ruby/2.3.0/tsort.rb:226:in `tsort_each'
+	from /usr/lib/ruby/2.3.0/tsort.rb:205:in `tsort_each'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/initializable.rb:54:in `run_initializers'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/application.rb:352:in `initialize!'
+	from /home/pc02/consul/config/environment.rb:5:in `<top (required)>'
+	from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:274:in `require'
+	from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:274:in `block in require'
+	from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:240:in `load_dependency'
+	from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:274:in `require'
+	from /home/pc02/consul/config.ru:3:in `block in <main>'
+	from /var/lib/gems/2.3.0/gems/rack-1.6.10/lib/rack/builder.rb:55:in `instance_eval'
+	from /var/lib/gems/2.3.0/gems/rack-1.6.10/lib/rack/builder.rb:55:in `initialize'
+	from /home/pc02/consul/config.ru:in `new'
+	from /home/pc02/consul/config.ru:in `<main>'
+	from /var/lib/gems/2.3.0/gems/rack-1.6.10/lib/rack/builder.rb:49:in `eval'
+	from /var/lib/gems/2.3.0/gems/rack-1.6.10/lib/rack/builder.rb:49:in `new_from_string'
+	from /var/lib/gems/2.3.0/gems/rack-1.6.10/lib/rack/builder.rb:40:in `parse_file'
+	from /var/lib/gems/2.3.0/gems/rack-1.6.10/lib/rack/server.rb:300:in `build_app_and_options_from_config'
+	from /var/lib/gems/2.3.0/gems/rack-1.6.10/lib/rack/server.rb:209:in `app'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/commands/server.rb:61:in `app'
+	from /var/lib/gems/2.3.0/gems/rack-1.6.10/lib/rack/server.rb:337:in `wrapped_app'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/commands/server.rb:139:in `log_to_stdout'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/commands/server.rb:78:in `start'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/commands/commands_tasks.rb:80:in `block in server'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/commands/commands_tasks.rb:75:in `tap'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/commands/commands_tasks.rb:75:in `server'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+	from /var/lib/gems/2.3.0/gems/railties-4.2.10/lib/rails/commands.rb:17:in `<top (required)>'
+	from /home/pc02/consul/bin/rails:9:in `require'
+	from /home/pc02/consul/bin/rails:9:in `<top (required)>'
+	from /var/lib/gems/2.3.0/gems/spring-2.0.2/lib/spring/client/rails.rb:28:in `load'
+	from /var/lib/gems/2.3.0/gems/spring-2.0.2/lib/spring/client/rails.rb:28:in `call'
+	from /var/lib/gems/2.3.0/gems/spring-2.0.2/lib/spring/client/command.rb:7:in `call'
+	from /var/lib/gems/2.3.0/gems/spring-2.0.2/lib/spring/client.rb:30:in `run'
+	from /var/lib/gems/2.3.0/gems/spring-2.0.2/bin/spring:49:in `<top (required)>'
+	from /var/lib/gems/2.3.0/gems/spring-2.0.2/lib/spring/binstub.rb:31:in `load'
+	from /var/lib/gems/2.3.0/gems/spring-2.0.2/lib/spring/binstub.rb:31:in `<top (required)>'
+	from /usr/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:68:in `require'
+	from /usr/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:68:in `require'
+	from /home/pc02/consul/bin/spring:15:in `<top (required)>'
+	from bin/rails:3:in `load'
+	from bin/rails:3:in `<main>'
+=> Booting WEBrick
+=> Rails 4.2.10 application starting in development on http://0.0.0.0:3000
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+Exiting
+warning: parser/current is loading parser/ruby23, which recognizes
+warning: 2.3.6-compliant syntax, but you are running 2.3.1.
+warning: please see https://github.com/whitequark/parser#compatibility-with-ruby-mri.
+The PGconn, PGresult, and PGError constants are deprecated, and will be
+removed as of version 1.0.
+
+You should use PG::Connection, PG::Result, and PG::Error instead, respectively.
+
+Called from /var/lib/gems/2.3.0/gems/activesupport-4.2.10/lib/active_support/dependencies.rb:240:in `load_dependency'
+[2018-08-08 10:43:01] INFO  WEBrick 1.3.1
+[2018-08-08 10:43:01] INFO  ruby 2.3.1 (2016-04-26) [i386-linux-gnu]
+[2018-08-08 10:43:01] INFO  WEBrick::HTTPServer#start: pid=4061 port=3000
+=> Booting WEBrick
+=> Rails 4.2.10 application starting in development on http://0.0.0.0:3000
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+
+
+Started GET "/" for 127.0.0.1 at 2018-08-08 10:43:44 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (85.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  [1m[35mWidget::Card Load (65.7ms)[0m  SELECT  "widget_cards".* FROM "widget_cards" WHERE "widget_cards"."header" = $1  ORDER BY "widget_cards"."id" ASC LIMIT 1  [["header", "t"]]
+  [1m[36mWidget::Feed Load (12.9ms)[0m  [1mSELECT  "widget_feeds".* FROM "widget_feeds" WHERE "widget_feeds"."kind" = $1 LIMIT 1[0m  [["kind", "proposals"]]
+  [1m[35mSetting Load (0.9ms)[0m  SELECT  "settings".* FROM "settings" WHERE "settings"."key" = $1  ORDER BY "settings"."id" ASC LIMIT 1  [["key", "feature.homepage.widgets.feeds.proposals"]]
+  [1m[36mWidget::Feed Load (0.9ms)[0m  [1mSELECT  "widget_feeds".* FROM "widget_feeds" WHERE "widget_feeds"."kind" = $1 LIMIT 1[0m  [["kind", "debates"]]
+  [1m[35mSetting Load (0.9ms)[0m  SELECT  "settings".* FROM "settings" WHERE "settings"."key" = $1  ORDER BY "settings"."id" ASC LIMIT 1  [["key", "feature.homepage.widgets.feeds.debates"]]
+  [1m[36mWidget::Feed Load (0.9ms)[0m  [1mSELECT  "widget_feeds".* FROM "widget_feeds" WHERE "widget_feeds"."kind" = $1 LIMIT 1[0m  [["kind", "processes"]]
+  [1m[35mSetting Load (0.8ms)[0m  SELECT  "settings".* FROM "settings" WHERE "settings"."key" = $1  ORDER BY "settings"."id" ASC LIMIT 1  [["key", "feature.homepage.widgets.feeds.processes"]]
+  Rendered shared/_canonical.html.erb (1.1ms)
+  [1m[36mBanner Load (36.3ms)[0m  [1mSELECT "banners".* FROM "banners" INNER JOIN "banner_sections" ON "banner_sections"."banner_id" = "banners"."id" INNER JOIN "web_sections" ON "web_sections"."id" = "banner_sections"."web_section_id" INNER JOIN "banner_sections" "sections_banners" ON "sections_banners"."banner_id" = "banners"."id" WHERE "banners"."hidden_at" IS NULL AND (web_sections.name ilike 'homepage') AND (post_started_at <= '2018-08-08 08:43:45.761409') AND (post_ended_at >= '2018-08-08 08:43:45.761852')[0m
+  [1m[35mSetting Load (1.1ms)[0m  SELECT "settings".* FROM "settings"  ORDER BY "settings"."id" ASC
+  Rendered shared/_social_media_meta_tags.html.erb (61.3ms)
+  Rendered welcome/_header.html.erb (2.5ms)
+  [1m[36mProposal Load (149.4ms)[0m  [1mSELECT  "proposals".* FROM "proposals" WHERE "proposals"."hidden_at" IS NULL  ORDER BY "proposals"."hot_score" DESC LIMIT 3[0m
+  [1m[35mImage Load (15.7ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."imageable_id" = $1 AND "images"."imageable_type" = $2 LIMIT 1  [["imageable_id", 40], ["imageable_type", "Proposal"]]
+  [1m[36mImage Load (0.9ms)[0m  [1mSELECT  "images".* FROM "images" WHERE "images"."imageable_id" = $1 AND "images"."imageable_type" = $2 LIMIT 1[0m  [["imageable_id", 44], ["imageable_type", "Proposal"]]
+  [1m[35mImage Load (0.9ms)[0m  SELECT  "images".* FROM "images" WHERE "images"."imageable_id" = $1 AND "images"."imageable_type" = $2 LIMIT 1  [["imageable_id", 24], ["imageable_type", "Proposal"]]
+  [1m[36mDebate Load (107.5ms)[0m  [1mSELECT  "debates".* FROM "debates" WHERE "debates"."hidden_at" IS NULL  ORDER BY "debates"."hot_score" DESC LIMIT 3[0m
+  Rendered welcome/_feeds.html.erb (739.2ms)
+  [1m[35m (1.0ms)[0m  SELECT "settings"."value" FROM "settings" WHERE "settings"."key" = $1  ORDER BY "settings"."id" ASC  [["key", "feature.homepage.widgets.feeds.processes"]]
+  [1m[36mWidget::Card Load (16.4ms)[0m  [1mSELECT "widget_cards".* FROM "widget_cards" WHERE "widget_cards"."header" = $1  ORDER BY "widget_cards"."created_at" ASC[0m  [["header", "f"]]
+  Rendered welcome/_cards.html.erb (20.5ms)
+  [1m[35mLegislation::Process Load (92.4ms)[0m  SELECT  "legislation_processes".* FROM "legislation_processes" WHERE "legislation_processes"."hidden_at" IS NULL AND (start_date <= '2018-08-08' and end_date >= '2018-08-08') AND "legislation_processes"."published" = $1  ORDER BY id DESC LIMIT 3  [["published", "t"]]
+  Rendered welcome/_processes.html.erb (11864.3ms)
+  Rendered welcome/index.html.erb within layouts/application (12922.3ms)
+  Rendered layouts/_common_head.html.erb (3965.6ms)
+  Rendered layouts/_tracking_data.html.erb (1.2ms)
+  Rendered layouts/_meta_tags.html.erb (1.1ms)
+  [1m[36mSiteCustomization::Image Load (27.5ms)[0m  [1mSELECT  "site_customization_images".* FROM "site_customization_images" WHERE "site_customization_images"."name" = $1 LIMIT 1[0m  [["name", "apple-touch-icon-200"]]
+  Rendered shared/_locale_switcher.html.erb (20.6ms)
+  [1m[35mSiteCustomization::ContentBlock Load (31.7ms)[0m  SELECT  "site_customization_content_blocks".* FROM "site_customization_content_blocks" WHERE "site_customization_content_blocks"."name" = $1 AND "site_customization_content_blocks"."locale" = $2 LIMIT 1  [["name", "top_links"], ["locale", "eu-ES"]]
+  Rendered shared/_top_links.html.erb (64.6ms)
+  [1m[36mSiteCustomization::Image Load (0.9ms)[0m  [1mSELECT  "site_customization_images".* FROM "site_customization_images" WHERE "site_customization_images"."name" = $1 LIMIT 1[0m  [["name", "logo_header"]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "site_customization_images".* FROM "site_customization_images" WHERE "site_customization_images"."name" = $1 LIMIT 1  [["name", "logo_header"]]
+  Rendered shared/_admin_login_items.html.erb (2.4ms)
+  Rendered layouts/_notification_item.html.erb (2.6ms)
+  Rendered devise/menu/_login_items.html.erb (6.6ms)
+  Rendered shared/_subnavigation.html.erb (16.8ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "site_customization_content_blocks".* FROM "site_customization_content_blocks" WHERE "site_customization_content_blocks"."name" = $1 AND "site_customization_content_blocks"."locale" = $2 LIMIT 1[0m  [["name", "top_links"], ["locale", :"eu-ES"]]
+  Rendered shared/_top_links.html.erb (2.7ms)
+  Rendered shared/_subnavigation.html.erb (2.6ms)
+  Rendered layouts/_header.html.erb (229.1ms)
+  Rendered layouts/_flash.html.erb (1.4ms)
+  [1m[35mSiteCustomization::ContentBlock Load (1.0ms)[0m  SELECT  "site_customization_content_blocks".* FROM "site_customization_content_blocks" WHERE "site_customization_content_blocks"."name" = $1 AND "site_customization_content_blocks"."locale" = $2 LIMIT 1  [["name", "footer"], ["locale", "eu-ES"]]
+  Rendered layouts/_footer.html.erb (16.9ms)
+Completed 200 OK in 17984ms (Views: 17052.3ms | ActiveRecord: 798.6ms)
+
+
+Started POST "/ahoy/visits" for 127.0.0.1 at 2018-08-08 10:44:05 +0200
+Dalli::Server#connect 127.0.0.1:11211
+127.0.0.1:11211 failed (count: 0) Errno::ECONNREFUSED: Connection refused - send
+DalliError: No server available
+Dalli::Server#connect 127.0.0.1:11211
+127.0.0.1:11211 failed (count: 1) Errno::ECONNREFUSED: Connection refused - send
+127.0.0.1:11211 is down
+DalliError: No server available
+Completed 200 OK in 483ms (Views: 0.5ms | ActiveRecord: 91.9ms)
+
+
+Started GET "/polls" for 127.0.0.1 at 2018-08-08 10:44:17 +0200
+Processing by PollsController#index as HTML
+  Rendered shared/_canonical.html.erb (1.2ms)
+  Rendered shared/_section_header.html.erb (9.0ms)
+  Rendered shared/_filter_subnav.html.erb (10.1ms)
+  [1m[36m (16.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT  1 AS count_column FROM "polls" WHERE "polls"."hidden_at" IS NULL AND (starts_at <= '2018-08-07 22:00:00.000000' and '2018-08-07 22:00:00.000000' <= ends_at) LIMIT 25 OFFSET 0) subquery_for_count[0m
+  [1m[35mSetting Load (1.3ms)[0m  SELECT "settings".* FROM "settings"  ORDER BY "settings"."id" ASC
+  Rendered polls/index.html.erb within layouts/application (117.7ms)
+  Rendered layouts/_common_head.html.erb (1080.3ms)
+  Rendered layouts/_tracking_data.html.erb (1.7ms)
+  Rendered layouts/_meta_tags.html.erb (1.7ms)
+  [1m[36mSiteCustomization::Image Load (1.2ms)[0m  [1mSELECT  "site_customization_images".* FROM "site_customization_images" WHERE "site_customization_images"."name" = $1 LIMIT 1[0m  [["name", "apple-touch-icon-200"]]
+  Rendered shared/_locale_switcher.html.erb (4.1ms)
+  [1m[35mSiteCustomization::ContentBlock Load (1.3ms)[0m  SELECT  "site_customization_content_blocks".* FROM "site_customization_content_blocks" WHERE "site_customization_content_blocks"."name" = $1 AND "site_customization_content_blocks"."locale" = $2 LIMIT 1  [["name", "top_links"], ["locale", "eu-ES"]]

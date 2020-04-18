@@ -1,0 +1,33 @@
+<%= form_for [:admin, @geozone] do |f| %>
+
+  <%= render "errors" %>
+
+  <div class="small-12 large-8 column">
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="clear">
+    <div class="small-12 medium-6 large-4 column">
+      <%= f.label :census_code %>
+      <p class="help-text"><%= t("admin.geozones.geozone.code_help") %></p>
+      <%= f.text_field :census_code, label: false %>
+    </div>
+
+    <div class="small-12 medium-6 large-4 column end">
+      <%= f.label :external_code %>
+      <p class="help-text"><%= t("admin.geozones.geozone.code_help") %></p>
+      <%= f.text_field :external_code, label: false %>
+    </div>
+  </div>
+
+  <div class="small-12 large-8 column">
+    <%= f.label :html_map_coordinates %>
+    <p class="help-text"><%= t("admin.geozones.geozone.coordinates_help") %></p>
+    <%= f.text_field :html_map_coordinates, label: false %>
+  </div>
+
+  <div class="small-12 column">
+    <%= f.submit(value: t("admin.geozones.edit.form.submit_button"),
+                class: "button success") %>
+  </div>
+<% end %>

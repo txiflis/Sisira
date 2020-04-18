@@ -1,0 +1,1420 @@
+[33mtag v0.0.1[m
+Tagger: txiflis <txiflis@hotmail.com>
+Date:   Sat Jul 21 10:25:44 2018 +0200
+
+Version inicial
+
+[33mcommit 7aa6679100b01c1f5de559b58504977301844356[m
+Author: txiflis <txiflis@hotmail.com>
+Date:   Fri Jul 20 21:07:38 2018 +0200
+
+    Commit inicial
+
+[1mdiff --git a/.codeclimate.yml b/.codeclimate.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c026af5[m
+[1m--- /dev/null[m
+[1m+++ b/.codeclimate.yml[m
+[36m@@ -0,0 +1,35 @@[m
+[32m+[m[32mengines:[m
+[32m+[m[32m  rubocop:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m  duplication:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    config:[m
+[32m+[m[32m      languages:[m
+[32m+[m[32m        ruby:[m
+[32m+[m[32m        javascript:[m
+[32m+[m[32m  brakeman:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m  bundler-audit:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m  coffeelint:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m  scss-lint:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m  fixme:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m  markdownlint:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32mratings:[m
+[32m+[m[32m  paths:[m
+[32m+[m[32m  - app/**/*[m
+[32m+[m[32m  - lib/**/*[m
+[32m+[m[32mexclude_paths:[m
+[32m+[m[32m- app/assets/fonts/[m
+[32m+[m[32m- app/assets/images/[m
+[32m+[m[32m- bin/rails[m
+[32m+[m[32m- bin/rake[m
+[32m+[m[32m- db/[m
+[32m+[m[32m- files/[m
+[32m+[m[32m- public/[m
+[32m+[m[32m- tmp/[m
+[32m+[m[32m- vendor/[m
+[1mdiff --git a/.coveralls.yml b/.coveralls.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6e64999[m
+[1m--- /dev/null[m
+[1m+++ b/.coveralls.yml[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32mservice_name: travis-ci[m
+\ No newline at end of file[m
+[1mdiff --git a/.editorconfig b/.editorconfig[m
+[1mnew file mode 100644[m
+[1mindex 0000000..619c276[m
+[1m--- /dev/null[m
+[1m+++ b/.editorconfig[m
+[36m@@ -0,0 +1,16 @@[m
+[32m+[m[32m# EditorConfig is awesome: http://EditorConfig.org[m
+[32m+[m[32mroot = true[m
+[32m+[m
+[32m+[m[32m[*][m
+[32m+[m[32mindent_style = space[m
+[32m+[m[32mindent_size = 2[m
+[32m+[m[32mend_of_line = lf[m
+[32m+[m[32mcharset = utf-8[m
+[32m+[m[32mtrim_trailing_whitespace = true[m
+[32m+[m[32minsert_final_newline = true[m
+[32m+[m
+[32m+[m[32m[*.md][m
+[32m+[m[32mtrim_trailing_whitespace = false[m
+[32m+[m
+[32m+[m[32m[*.yml][m
+[32m+[m[32minsert_final_newline = false[m
+[1mdiff --git a/.github/ISSUE_TEMPLATE/flakies.md b/.github/ISSUE_TEMPLATE/flakies.md[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d7fde88[m
+[1m--- /dev/null[m
+[1m+++ b/.github/ISSUE_TEMPLATE/flakies.md[m
+[36m@@ -0,0 +1,52 @@[m
+[32m+[m[32m# What[m
+[32m+[m[32mTests that fail randomly are called "flakies", this one seems to be one:[m
+[32m+[m
+[32m+[m[32m**Randomized seed:** FILL_WITH_RANDOM_SEED[m
+[32m+[m
+[32m+[m[32m**Travis failed build:** FILL_WITH_TRAVIS_FAILED_BUILD_LINK[m
+[32m+[m
+[32m+[m[32m**Failure:**[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32m  FILL_WITH_FAILURE_REPORT[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m# How[m
+[32m+[m[32m- [ ] Explain why the test is flaky, or under which conditions/scenario it fails randomly[m
+[32m+[m[32m- [ ] Explain why your PR fixes it[m
+[32m+[m
+[32m+[m[32m## Tips for flaky hunting[m
+[32m+[m
+[32m+[m[32m### Random values issues[m
+[32m+[m[32mIf the problem comes from randomly generated values, running multiple times a single spec could help you reproduce the failure by running at your command line:[m
+[32m+[m[32m```bash[m
+[32m+[m[32mfor run in {1..10}[m
+[32m+[m[32mdo[m
+[32m+[m[32m  bin/rspec ./spec/features/budgets/investments_spec.rb:256[m
+[32m+[m[32mdone[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mYou can also try running a single spec in Travis:[m
+[32m+[m[32mAdd option `:focus` to the spec and push your branch to Github, for example:[m
+[32m+[m[32m```ruby[m
+[32m+[m[32mscenario 'Show', :focus do[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mBut remember to remove that `:focus` changes afterwards when submitting your PR changes![m
+[32m+[m
+[32m+[m[32m### Test order issues[m
+[32m+[m[32mRunning specs in the order they failed may discover that the problem is that a previous test sets an state in the test environment that makes our flaky fail/pass. Tests should be independent from the rest.[m
+[32m+[m
+[32m+[m[32mAfter executing rspec you can see the seed used, add it as an option to rspec, for example:[m
+[32m+[m[32m`bin/rspec --seed 55638` (check **Randomized seed** value at beginning of issue)[m
+[32m+[m
+[32m+[m[32m### Other things to watch for[m
+[32m+[m[32m- Time related issues (current time, two time or date comparisons with miliseconds/time when its not needed)[m
+[32m+[m[32m- https://semaphoreci.com/community/tutorials/how-to-deal-with-and-eliminate-flaky-tests[m
+[32m+[m
+[32m+[m[32m### Final thoughts[m
+[32m+[m[32mThe true objective of this issue is not "to fix" a flaky spec, but to change a spec that randomly fails into one that we can trust when it passes (or fails).[m[41m [m
+[32m+[m
+[32m+[m[32mThat means you've to think "What are we testing here?" and "Can we test the same thing in another way?" or "Are we already testing this somewhere else at least partially?".[m
+[32m+[m
+[32m+[m[32mSometimes the fix is to re-write the entire tests with a different approach, or to extend an existing spec. Tests are sometimes written without taking a look at other tests files neither near scenarios.[m
+[1mdiff --git a/.github/PULL_REQUEST_TEMPLATE b/.github/PULL_REQUEST_TEMPLATE[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0689cbc[m
+[1m--- /dev/null[m
+[1m+++ b/.github/PULL_REQUEST_TEMPLATE[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32mReferences[m
+[32m+[m[32m==========[m
+[32m+[m[32m> Add references to related Issues/Pull Requests/Travis Builds/Rollbar errors/etc...[m
+[32m+[m
+[32m+[m[32mObjectives[m
+[32m+[m[32m==========[m
+[32m+[m[32m> What are the objectives of this changes? (If there is no related Issue with an explanation)[m
+[32m+[m
+[32m+[m[32mVisual Changes (if any)[m
+[32m+[m[32m=======================[m
+[32m+[m[32m> Any visual changes? please attach screenshots (or gifs) showing them.[m
+[32m+[m[32m> If modified views are public (not the admin panel), try them in mobile display (with your browser's developer console) and add screenshots.[m
+[32m+[m
+[32m+[m[32mNotes[m
+[32m+[m[32m=====================[m
+[32m+[m[32m> Mention rake tasks or actions to be done when deploying this changes to a server (if any).[m
+[32m+[m[32m> Explain any caveats, or important things to notice like deprecations (if any).[m
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7761dba[m
+[1m--- /dev/null[m
+[1m+++ b/.gitignore[m
+[36m@@ -0,0 +1,35 @@[m
+[32m+[m[32m# See https://help.github.com/articles/ignoring-files for more about ignoring files.[m
+[32m+[m[32m#[m
+[32m+[m[32m# If you find yourself ignoring temporary files generated by your text editor[m
+[32m+[m[32m# or operating system, you probably want to add a global ignore instead:[m
+[32m+[m[32m#   git config --global core.excludesfile '~/.gitignore_global'[m
+[32m+[m
+[32m+[m[32m# Ignore bundler config.[m
+[32m+[m[32m/.bundle[m
+[32m+[m
+[32m+[m[32m# Ignore the default SQLite database.[m
+[32m+[m[32m/db/*.sqlite3[m
+[32m+[m[32m/db/*.sqlite3-journal[m
+[32m+[m
+[32m+[m[32m# Ignore all logfiles and tempfiles.[m
+[32m+[m[32m/log/*[m
+[32m+[m[32m!/log/.keep[m
+[32m+[m[32m/tmp[m
+[32m+[m
+[32m+[m[32m/spec/examples.txt[m
+[32m+[m[32m/config/database.yml[m
+[32m+[m[32m/config/secrets.yml[m
+[32m+[m[32m/config/deploy-secrets.yml[m
+[32m+[m[32m/config/maintenance.yml[m
+[32m+[m
+[32m+[m[32m/coverage[m
+[32m+[m
+[32m+[m[32m/config/beta-testers.txt[m
+[32m+[m[32m.byebug_history[m
+[32m+[m
+[32m+[m[32m# Mac finder artifacts[m
+[32m+[m[32m.DS_Store[m
+[32m+[m[32m.ruby-gemset[m
+[32m+[m
+[32m+[m[32mpublic/sitemap.xml[m
+[32m+[m[32mpublic/system/[m
+[1mdiff --git a/.mdlrc b/.mdlrc[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5071bdb[m
+[1m--- /dev/null[m
+[1m+++ b/.mdlrc[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32mrules "MD001", "MD002", "MD003", "MD004", "MD005", "MD006", "MD007", "MD008", "MD009", "MD010", "MD011", "MD012", "MD014", "MD015", "MD016", "MD017", "MD018", "MD019", "MD020", "MD021", "MD022", "MD023", "MD024", "MD025", "MD026", "MD027", "MD028", "MD029", "MD030", "MD031", "MD032", "MD033", "MD034", "MD035", "MD036", "MD037", "MD038", "MD039", "MD040", "MD041"[m
+[1mdiff --git a/.rspec b/.rspec[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f26ef5a[m
+[1m--- /dev/null[m
+[1m+++ b/.rspec[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32m--color[m
+[32m+[m
+[1mdiff --git a/.rubocop.yml b/.rubocop.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f697dab[m
+[1m--- /dev/null[m
+[1m+++ b/.rubocop.yml[m
+[36m@@ -0,0 +1,422 @@[m
+[32m+[m[32minherit_from: .rubocop_todo.yml[m
+[32m+[m[32mrequire: rubocop-rspec[m
+[32m+[m
+[32m+[m[32mAllCops:[m
+[32m+[m[32m  DisplayCopNames: true[m
+[32m+[m[32m  DisplayStyleGuide: true[m
+[32m+[m[32m  Include:[m
+[32m+[m[32m    - '**/Rakefile'[m
+[32m+[m[32m    - '**/config.ru'[m
+[32m+[m[32m  Exclude:[m
+[32m+[m[32m    - 'db/**/*'[m
+[32m+[m[32m    - 'config/**/*'[m
+[32m+[m[32m    - 'script/**/*'[m
+[32m+[m[32m  TargetRubyVersion: 2.3[m
+[32m+[m[32m  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop[m
+[32m+[m[32m  # to ignore them, so only the ones explicitly set in this file are enabled.[m
+[32m+[m[32m  DisabledByDefault: true[m
+[32m+[m
+[32m+[m[32mMetrics/LineLength:[m
+[32m+[m[32m  Max: 100[m
+[32m+[m
+[32m+[m[32mLayout/IndentationConsistency:[m
+[32m+[m[32m  EnforcedStyle: rails[m
+[32m+[m
+[32m+[m[32mLayout/EndOfLine:[m
+[32m+[m[32m  EnforcedStyle: lf[m
+[32m+[m
+[32m+[m[32mBundler/DuplicatedGem:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mBundler/InsecureProtocolSource:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mBundler/OrderedGems:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mGemspec/DuplicatedAssignment:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mGemspec/OrderedDependencies:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mGemspec/RequiredRubyVersion:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/Caller:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/CaseWhenSplat:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/Casecmp:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/CompareWithBlock:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/Count:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/Detect:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/DoubleStartEndWith:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/EndWith:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/FixedSize:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/FlatMap:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/LstripRstrip:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/RangeInclude:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/RedundantBlockCall:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/RedundantMatch:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/RedundantMerge:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/RedundantSortBy:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/RegexpMatch:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/ReverseEach:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/Sample:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/Size:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/StartWith:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/StringReplacement:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/TimesMap:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/UnfreezeString:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mPerformance/UriDefaultParser:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/ActionFilter:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/ActiveSupportAliases:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/ApplicationJob:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/ApplicationRecord:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/Blank:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/CreateTableWithTimestamps:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/Date:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/Delegate:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/DelegateAllowBlank:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/DynamicFindBy:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/EnumUniqueness:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/EnvironmentComparison:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/Exit:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/FilePath:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/FindBy:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/FindEach:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/HasAndBelongsToMany:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/HasManyOrHasOneDependent:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/HttpPositionalArguments:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/InverseOf:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/LexicallyScopedActionFilter:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/NotNullColumn:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/Output:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/OutputSafety:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/PluralizationGrammar:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/Presence:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/Present:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/ReadWriteAttribute:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/RedundantReceiverInWithOptions:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/RelativeDateConstant:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/RequestReferer:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/ReversibleMigration:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/SafeNavigation:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/SaveBang:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/ScopeArgs:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/SkipsModelValidations:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/TimeZone:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/UniqBeforePluck:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/UnknownEnv:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/Validation:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/AlignLeftLetBrace:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32mRSpec/AlignRightLetBrace:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32mRSpec/AnyInstance:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32mRSpec/AroundBlock:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/BeEql:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/BeforeAfterAll:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mCapybara/CurrentPathExpectation:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mCapybara/FeatureMethods:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32mRSpec/ContextWording:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32mRSpec/DescribeClass:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/DescribeMethod:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/DescribeSymbol:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/DescribedClass:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/EmptyExampleGroup:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/EmptyLineAfterSubject:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/ExampleLength:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32mRSpec/ExampleWording:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/ExpectActual:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/ExpectInHook:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/ExpectOutput:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/FilePath:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/Focus:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/HookArgument:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/ImplicitExpect:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m[32m  EnforcedStyle: should[m
+[32m+[m
+[32m+[m[32mRSpec/InstanceSpy:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/InstanceVariable:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/InvalidPredicateMatcher:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/ItBehavesLike:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/IteratedExpectation:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/LeadingSubject:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/LetBeforeExamples:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/LetSetup:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/MessageChain:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/MessageExpectation:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/MessageSpies:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m[32m  EnforcedStyle: receive[m
+[32m+[m
+[32m+[m[32mRSpec/MultipleDescribes:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/MultipleExpectations:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32mRSpec/MultipleSubjects:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/NamedSubject:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32mRSpec/NestedGroups:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m[32m  Max: 4[m
+[32m+[m
+[32m+[m[32mRSpec/NotToNot:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/OverwritingSetup:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/PredicateMatcher:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRails/HttpStatus:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/RepeatedDescription:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/RepeatedExample:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/ReturnFromStub:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/ScatteredLet:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/ScatteredSetup:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/SharedContext:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/SingleArgumentMessageChain:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/SubjectStub:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/VerifiedDoubles:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mRSpec/VoidExpect:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mFactoryBot/StaticAttributeDefinedDynamically:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mFactoryBot/DynamicAttributeDefinedStatically:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32mSecurity/Eval:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mSecurity/JSONLoad:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mSecurity/MarshalLoad:[m
+[32m+[m[32m  Enabled: true[m
+[32m+[m
+[32m+[m[32mSecurity/YAMLLoad:[m
+[32m+[m[32m  Enabled: true[m
+[1mdiff --git a/.rubocop_todo.yml b/.rubocop_todo.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f3a40d8[m
+[1m--- /dev/null[m
+[1m+++ b/.rubocop_todo.yml[m
+[36m@@ -0,0 +1,71 @@[m
+[32m+[m[32m# This configuration was generated by[m
+[32m+[m[32m# `rubocop --auto-gen-config`[m
+[32m+[m[32m# on 2018-02-10 21:25:09 +0100 using RuboCop version 0.52.1.[m
+[32m+[m[32m# The point is for the user to remove these configuration records[m
+[32m+[m[32m# one by one as the offenses are removed from the code base.[m
+[32m+[m[32m# Note that changes in the inspected code, or installation of new[m
+[32m+[m[32m# versions of RuboCop, may require this file to be generated again.[m
+[32m+[m
+[32m+[m[32m# Offense count: 10[m
+[32m+[m[32m# Cop supports --auto-correct.[m
+[32m+[m[32m# Configuration parameters: EnforcedStyle.[m
+[32m+[m[32m# SupportedStyles: normal, rails[m
+[32m+[m[32mLayout/IndentationConsistency:[m
+[32m+[m[32m  Exclude:[m
+[32m+[m[32m    - 'spec/features/tracks_spec.rb'[m
+[32m+[m[32m    - 'spec/models/budget/investment_spec.rb'[m
+[32m+[m[32m    - 'spec/models/legislation/draft_version_spec.rb'[m
+[32m+[m[32m    - 'spec/models/proposal_spec.rb'[m
+[32m+[m
+[32m+[m[32m# Offense count: 1225[m
+[32m+[m[32m# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.[m
+[32m+[m[32m# URISchemes: http, https[m
+[32m+[m[32mMetrics/LineLength:[m
+[32m+[m[32m  Max: 248[m
+[32m+[m
+[32m+[m[32m# Offense count: 4[m
+[32m+[m[32m# Cop supports --auto-correct.[m
+[32m+[m[32mPerformance/RedundantMatch:[m
+[32m+[m[32m  Exclude:[m
+[32m+[m[32m    - 'app/controllers/valuation/budget_investments_controller.rb'[m
+[32m+[m[32m    - 'app/controllers/valuation/spending_proposals_controller.rb'[m
+[32m+[m
+[32m+[m[32m# Offense count: 11[m
+[32m+[m[32mRSpec/DescribeClass:[m
+[32m+[m[32m  Exclude:[m
+[32m+[m[32m    - 'spec/customization_engine_spec.rb'[m
+[32m+[m[32m    - 'spec/i18n_spec.rb'[m
+[32m+[m[32m    - 'spec/lib/acts_as_paranoid_aliases_spec.rb'[m
+[32m+[m[32m    - 'spec/lib/cache_spec.rb'[m
+[32m+[m[32m    - 'spec/lib/graphql_spec.rb'[m
+[32m+[m[32m    - 'spec/lib/tasks/communities_spec.rb'[m
+[32m+[m[32m    - 'spec/lib/tasks/dev_seed_spec.rb'[m
+[32m+[m[32m    - 'spec/lib/tasks/map_location_spec.rb'[m
+[32m+[m[32m    - 'spec/lib/tasks/settings_spec.rb'[m
+[32m+[m[32m    - 'spec/models/abilities/organization_spec.rb'[m
+[32m+[m[32m    - 'spec/views/welcome/index.html.erb_spec.rb'[m
+[32m+[m
+[32m+[m[32m# Offense count: 2[m
+[32m+[m[32m# Configuration parameters: SkipBlocks, EnforcedStyle.[m
+[32m+[m[32m# SupportedStyles: described_class, explicit[m
+[32m+[m[32mRSpec/DescribedClass:[m
+[32m+[m[32m  Exclude:[m
+[32m+[m[32m    - 'spec/controllers/concerns/has_filters_spec.rb'[m
+[32m+[m[32m    - 'spec/controllers/concerns/has_orders_spec.rb'[m
+[32m+[m
+[32m+[m[32m# Offense count: 6[m
+[32m+[m[32mRSpec/ExpectActual:[m
+[32m+[m[32m  Exclude:[m
+[32m+[m[32m    - 'spec/routing/**/*'[m
+[32m+[m[32m    - 'spec/features/admin/budget_investments_spec.rb'[m
+[32m+[m
+[32m+[m[32m# Offense count: 830[m
+[32m+[m[32m# Configuration parameters: AssignmentOnly.[m
+[32m+[m[32mRSpec/InstanceVariable:[m
+[32m+[m[32m  Enabled: false[m
+[32m+[m
+[32m+[m[32m# Offense count: 1[m
+[32m+[m[32m# Configuration parameters: IgnoreSymbolicNames.[m
+[32m+[m[32mRSpec/VerifiedDoubles:[m
+[32m+[m[32m  Exclude:[m
+[32m+[m[32m    - 'spec/models/verification/management/email_spec.rb'[m
+[1mdiff --git a/.ruby-version b/.ruby-version[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e703481[m
+[1m--- /dev/null[m
+[1m+++ b/.ruby-version[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32m2.3.2[m
+\ No newline at end of file[m
+[1mdiff --git a/.scss-lint.yml b/.scss-lint.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..dfa4690[m
+[1m--- /dev/null[m
+[1m+++ b/.scss-lint.yml[m
+[36m@@ -0,0 +1,211 @@[m
+[32m+[m[32mlinters:[m
+[32m+[m
+[32m+[m[32m  BangFormat:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    space_before_bang: true[m
+[32m+[m[32m    space_after_bang: false[m
+[32m+[m
+[32m+[m[32m  BorderZero:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    convention: zero[m
+[32m+[m
+[32m+[m[32m  ChainedClasses:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  ColorKeyword:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  ColorVariable:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  Comment:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  DebugStatement:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  DeclarationOrder:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  DisableLinterReason:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  DuplicateProperty:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  ElsePlacement:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    style: same_line[m
+[32m+[m
+[32m+[m[32m  EmptyLineBetweenBlocks:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    ignore_single_line_blocks: true[m
+[32m+[m
+[32m+[m[32m  EmptyRule:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  ExtendDirective:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  FinalNewline:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    present: true[m
+[32m+[m
+[32m+[m[32m  HexLength:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    style: short[m
+[32m+[m
+[32m+[m[32m  HexNotation:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    style: lowercase[m
+[32m+[m
+[32m+[m[32m  HexValidation:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  IdSelector:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  ImportantRule:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  ImportPath:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    leading_underscore: false[m
+[32m+[m[32m    filename_extension: false[m
+[32m+[m
+[32m+[m[32m  Indentation:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    allow_non_nested_indentation: true[m
+[32m+[m[32m    character: space[m
+[32m+[m[32m    width: 2[m
+[32m+[m
+[32m+[m[32m  LeadingZero:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    style: include_zero[m
+[32m+[m
+[32m+[m[32m  MergeableSelector:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m[32m    force_nesting: false[m
+[32m+[m
+[32m+[m[32m  NameFormat:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    convention: hyphenated_lowercase[m
+[32m+[m[32m    allow_leading_underscore: true[m
+[32m+[m
+[32m+[m[32m  NestingDepth:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    max_depth: 4[m
+[32m+[m
+[32m+[m[32m  PlaceholderInExtend:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  PrivateNamingConvention:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    prefix: _[m
+[32m+[m
+[32m+[m[32m  PropertyCount:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  PropertySortOrder:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  PropertySpelling:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    extra_properties: [][m
+[32m+[m
+[32m+[m[32m  PropertyUnits:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  PseudoElement:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  QualifyingElement:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    allow_element_with_attribute: false[m
+[32m+[m[32m    allow_element_with_class: false[m
+[32m+[m[32m    allow_element_with_id: false[m
+[32m+[m
+[32m+[m[32m  SelectorDepth:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    max_depth: 5[m
+[32m+[m
+[32m+[m[32m  SelectorFormat:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    convention: hyphenated_lowercase[m
+[32m+[m
+[32m+[m[32m  Shorthand:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  SingleLinePerProperty:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    allow_single_line_rule_sets: false[m
+[32m+[m
+[32m+[m[32m  SingleLinePerSelector:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  SpaceAfterComma:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  SpaceAfterPropertyColon:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    style: one_space[m
+[32m+[m
+[32m+[m[32m  SpaceAfterPropertyName:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  SpaceAfterVariableColon:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    style: at_least_one_space[m
+[32m+[m
+[32m+[m[32m  SpaceAfterVariableName:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  SpaceAroundOperator:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    style: one_space[m
+[32m+[m
+[32m+[m[32m  SpaceBeforeBrace:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    style: space[m
+[32m+[m[32m    allow_single_line_padding: true[m
+[32m+[m
+[32m+[m[32m  SpaceBetweenParens:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    spaces: 0[m
+[32m+[m
+[32m+[m[32m  StringQuotes:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    style: single_quotes[m
+[32m+[m
+[32m+[m[32m  TrailingSemicolon:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  TrailingZero:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  TransitionAll:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  UnnecessaryMantissa:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  UnnecessaryParentReference:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  UrlFormat:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  UrlQuotes:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m
+[32m+[m[32m  VariableForProperty:[m
+[32m+[m[32m    enabled: false[m
+[32m+[m
+[32m+[m[32m  VendorPrefixes:[m
+[32m+[m[32m    enabled: true[m
+[32m+[m[32m    identifier_list: base[m
+[32m+[m[32m    include: [][m
+[32m+[m[32m    exclude: [][m
+[32m+[m
+[32m+[m[32m  ZeroUnit:[m
+[32m+[m[32m    enabled: true[m
+[1mdiff --git a/.travis.yml b/.travis.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..cb4ffd0[m
+[1m--- /dev/null[m
+[1m+++ b/.travis.yml[m
+[36m@@ -0,0 +1,33 @@[m
+[32m+[m[32mlanguage: ruby[m
+[32m+[m[32maddons:[m
+[32m+[m[32m  postgresql: '9.4'[m
+[32m+[m[32m  chrome: stable[m
+[32m+[m[32mrvm:[m
+[32m+[m[32m- 2.3.2[m
+[32m+[m[32mcache: bundler[m
+[32m+[m[32mbundler_args: --without development[m
+[32m+[m[32mbefore_script:[m
+[32m+[m[32m- wget -N https://chromedriver.storage.googleapis.com/2.36/chromedriver_linux64.zip -P ~/[m
+[32m+[m[32m- unzip ~/chromedriver_linux64.zip -d ~/[m
+[32m+[m[32m- rm ~/chromedriver_linux64.zip[m
+[32m+[m[32m- sudo mv -f ~/chromedriver /usr/local/share/[m
+[32m+[m[32m- sudo chmod +x /usr/local/share/chromedriver[m
+[32m+[m[32m- sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver[m
+[32m+[m[32m- for i in config/*.example; do cp "$i" "${i/.example}"; done[m
+[32m+[m[32m- bundle exec rake db:setup[m
+[32m+[m[32mscript:[m
+[32m+[m[32m- "bundle exec rake assets:precompile RAILS_ENV=test > /dev/null 2>&1"[m
+[32m+[m[32m- "bin/knapsack_pro_rspec"[m
+[32m+[m[32menv:[m
+[32m+[m[32m  global:[m
+[32m+[m[32m  - KNAPSACK_PRO_FIXED_QUEUE_SPLIT=true[m
+[32m+[m[32m  - KNAPSACK_PRO_LOG_LEVEL=info[m
+[32m+[m[32m  - KNAPSACK_PRO_CI_NODE_TOTAL=2[m
+[32m+[m[32m  matrix:[m
+[32m+[m[32m  - KNAPSACK_PRO_CI_NODE_INDEX=0[m
+[32m+[m[32m  - KNAPSACK_PRO_CI_NODE_INDEX=1[m
+[32m+[m[32mnotifications:[m
+[32m+[m[32m  slack:[m
+[32m+[m[32m    secure: 18E9SU0SR/9knRvCMYwVqFCqVTBT6qJtZQ/gadpheqUPPlcLoQfnlIzJkLIYqkE0sn1nkBE5Bt2I90FU53p0NkrTEmSGlQXcN1vEXM8EXMaoVf3NBsIJeleMwt9VTojzo81EgIi6x7q3fDiFORJ4rqOGd9XkeLn5yrAtIkdaenVs0bhS5s24FP76hKqO37IFLG2v3EEqxg5k31oW6yhyP35Mxns+AGbfaZbxEy4XbCoU65KFuYhBsVZ/y1evOl/wcre2fCAoT2uKeqUWGEcDzH7oSCz7vfk7iO9BZnO++v7oj8mr/nrZL1KMFt77eqtdT51XQoJcchgJC/R9km5hRGkQqFCHhqPcBxo5c3p+jauL0kLaqTggeLDv2FQ2huJ8FSJ4ADac+n3g7wT7BX7HJlCvK0nbooY1JtBlk7+6/pw6ksSFIOo0FHg5gXN9IlG1tQQuENzzsXULNc6s4nPeT+n78uOp1b0N/Gn06moEBaKgXqqx1yV1XeJ02X8n3uDZxPuX3n2bJ4DMIrBjeWApxHAgyOraOzQHNQgJoj4tHlWutF33ApV2tcIMefIzvjM4tIYwIkpfGgohGaTf8eU5X9pqiMgwlDpJHVBsSvpk/Z/Nj7evYznjBiDYqOcXoztsqHrS0C91MaT+eExDfd9HDmThsE07RT7zcP9aElFZA/k=[m
+[32m+[m[32m    on_failure: always[m
+[32m+[m[32m    on_success: change[m
+[1mdiff --git a/CHANGELOG.md b/CHANGELOG.md[m
+[1mnew file mode 100644[m
+[1mindex 0000000..fb09a57[m
+[1m--- /dev/null[m
+[1m+++ b/CHANGELOG.md[m
+[36m@@ -0,0 +1,358 @@[m
+[32m+[m[32m# Changelog[m
+[32m+[m
+[32m+[m[32mThe format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)[m
+[32m+[m[32mand this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).[m
+[32m+[m
+[32m+[m[32m## [0.15.0](https://github.com/consul/consul/compare/v0.14...v0.15) - 2018-05-23[m
+[32m+[m
+[32m+[m[32m### Added[m
+[32m+[m[32m- **Budgets:** Show 'See Results' button in budget admin panel https://github.com/consul/consul/pull/2632[m
+[32m+[m[32m- **Budgets:** Add valuator groups  assigned to investments to admin tables & csv export https://github.com/consul/consul/pull/2592[m
+[32m+[m[32m- **Budgets:** Add Valuator Group name validation & related specs https://github.com/consul/consul/pull/2576[m
+[32m+[m[32m- **Budgets:** Display message in budget's index when there are no budgets https://github.com/consul/consul/pull/2575[m
+[32m+[m[32m- **Budgets:** Allow supporting investments on more than one heading per group https://github.com/consul/consul/pull/2546[m
+[32m+[m[32m- **Budgets:** User segment for users that haven't supported in budget https://github.com/consul/consul/pull/2540[m
+[32m+[m[32m- **Budgets:** Allow Budget Group names to be edited https://github.com/consul/consul/pull/2504[m
+[32m+[m[32m- **Budgets:** Add valuator groups https://github.com/consul/consul/pull/2510[m
+[32m+[m[32m- **Budgets:** Add column show to valuators https://github.com/consul/consul/pull/2342[m
+[32m+[m[32m- **Globalization:** Allow admin generated content to be translatable https://github.com/consul/consul/pull/2619[m
+[32m+[m[32m- **Globalization:** New Crowdin translations https://github.com/consul/consul/pull/2572[m
+[32m+[m[32m- **Notifications:** Extend notifications to be marked as read or unread https://github.com/consul/consul/pull/2549[m
+[32m+[m[32m- **Notifications:** Let users mark Notifications as read https://github.com/consul/consul/issues/2478[m
+[32m+[m[32m- **Accounts:** Admin users https://github.com/consul/consul/pull/2538[m
+[32m+[m[32m- **Configuration:** Document upload setting https://github.com/consul/consul/pull/2585[m
+[32m+[m[32m- **Configuration:** Added setting on admin to skip user verification https://github.com/consul/consul/pull/2399[m
+[32m+[m[32m- **Management:** Let managers reset user's password https://github.com/consul/consul/pull/2548[m
+[32m+[m[32m- **Design:** View mode selector on lists https://github.com/consul/consul/issues/2509[m
+[32m+[m[32m- **Maintenance:** Make config.time\_zone configurable at secrets.yml https://github.com/consul/consul/pull/2468[m
+[32m+[m[32m- **Maintenance:** Include Node.js as requirement on README https://github.com/consul/consul/pull/2486[m
+[32m+[m[32m- **Maintenance:** Add Node.js as requirement on README \(spanish\) https://github.com/consul/consul/pull/2550[m
+[32m+[m
+[32m+[m[32m### Changed[m
+[32m+[m[32m- **Budgets:** Display unfeasibility explanation only when valuation has finished https://github.com/consul/consul/pull/2570[m
+[32m+[m[32m- **Budgets:** Admin budget investment info https://github.com/consul/consul/pull/2539[m
+[32m+[m[32m- **Budgets:** Restrict valuators access to edit/valute only on valuating phase https://github.com/consul/consul/pull/2535[m
+[32m+[m[32m- **Budgets:** Valuators cannot reopen finished valuations https://github.com/consul/consul/pull/2518[m
+[32m+[m[32m- **Budgets:** Heading link on budgets message https://github.com/consul/consul/pull/2528[m
+[32m+[m[32m- **Newsletters:** Admin newsletter email refactor https://github.com/consul/consul/pull/2474[m
+[32m+[m[32m- **Newsletters:** Admin emails list download https://github.com/consul/consul/pull/2466[m
+[32m+[m[32m- **Newsletters:** Admin newsletter emails https://github.com/consul/consul/pull/2462[m
+[32m+[m[32m- **Maintenance:** Migration from PhantomJS to Headless Chrome https://github.com/consul/consul/pull/2534[m
+[32m+[m[32m- **Maintenance:** Update rubocop gem from 0.53.0 to 0.54.0 https://github.com/consul/consul/pull/2574[m
+[32m+[m[32m- **Maintenance:** Update rails-html-sanitizer gem version to 1.0.4 https://github.com/consul/consul/pull/2568[m
+[32m+[m[32m- **Maintenance:** Improve README code syntax https://github.com/consul/consul/pull/2561[m
+[32m+[m[32m- **Maintenance:** Improve Github's Pull Request Template file https://github.com/consul/consul/pull/2515[m
+[32m+[m[32m- **Maintenance:** Remove sitemap generator output when running specs https://github.com/consul/consul/pull/2599[m
+[32m+[m[32m- **Maintenance:** Avoid db:dev\_seed log print when run from its test https://github.com/consul/consul/pull/2598[m
+[32m+[m[32m- **Maintenance:** Update loofah gem to 2.2.1 version https://github.com/consul/consul/pull/2545[m
+[32m+[m[32m- **Maintenance:** Rubocop & rubocop-rspec gem & config updates https://github.com/consul/consul/pull/2524[m
+[32m+[m
+[32m+[m[32m### Fixed[m
+[32m+[m[32m- **Budgets:** Fix valuation heading filters https://github.com/consul/consul/pull/2578[m
+[32m+[m[32m- **Budgets:** Fixes budgets ui for all phases https://github.com/consul/consul/pull/2537[m
+[32m+[m[32m- **Budgets:** Fixes Issue \#2604 https://github.com/consul/consul/pull/2614[m
+[32m+[m[32m- **Maps:** Fix MapLocation json\_data to return mappable ids https://github.com/consul/consul/pull/2613[m
+[32m+[m[32m- **Accounts:** Fix to change email address from my account https://github.com/consul/consul/pull/2569[m
+[32m+[m[32m- **Social share:** Fixes social share buttons https://github.com/consul/consul/pull/2525[m
+[32m+[m[32m- **Newsletters:** Fixed how newsletters controller and mailer handle recipients https://github.com/consul/consul/pull/2492[m
+[32m+[m[32m- **Newsletters:** Fix UserSegment feasible and undecided investment authors https://github.com/consul/consul/pull/2491[m
+[32m+[m[32m- **Newsletters:** Remove empty emails from user segment usages[m[41m [m
+[32m+[m[32m- **Design:** Mode view https://github.com/consul/consul/pull/2567[m
+[32m+[m[32m- **Design:** Minor fixes https://github.com/consul/consul/pull/2566[m
+[32m+[m[32m- **Design:** Improve Documents list https://github.com/consul/consul/pull/2490[m
+[32m+[m[32m- **Design:** UI fixes https://github.com/consul/consul/pull/2489[m
+[32m+[m[32m- **Design:** Cleans legislation proposals https://github.com/consul/consul/pull/2527[m
+[32m+[m[32m- **Design:** Design minor fixes https://github.com/consul/consul/pull/2465[m
+[32m+[m[32m- **Design:** Help text https://github.com/consul/consul/pull/2452[m
+[32m+[m[32m- **Maintenance:** Fix routes deprecation warning for `to:` usage https://github.com/consul/consul/pull/2560[m
+[32m+[m[32m- **Maintenance:** Fix date parsing to take the TimeZone in account  https://github.com/consul/consul/pull/2559[m
+[32m+[m[32m- **Maintenance:** Fix `rake db:dev\_seed` task flaky spec https://github.com/consul/consul/pull/2522[m
+[32m+[m[32m- **Maintenance:** Fix Email Spec comment random failures https://github.com/consul/consul/pull/2506[m
+[32m+[m[32m- **Maintenance:** Fix flaky spec: Residence Assigned officers Error https://github.com/consul/consul/pull/2458[m
+[32m+[m[32m- **Maintenance:** Fix for flaky spec in Officing spec test file https://github.com/consul/consul/pull/2543[m
+[32m+[m[32m- **Maintenance:** Fix Flaky spec: Moderate debates Hide https://github.com/consul/consul/pull/2542[m
+[32m+[m[32m- **Maintenance:** Fix flaky spec: random investments order scenario https://github.com/consul/consul/pull/2536[m
+[32m+[m[32m- **Maintenance:** Fixed flaky spec: missing comment on legislation annotation https://github.com/consul/consul/pull/2455[m
+[32m+[m[32m- **Maintenance:** Fix flaky spec: random investments order scenario  https://github.com/consul/consul/pull/2454[m
+[32m+[m[32m- **Maintenance:** Fix flaky spec: users without email should not receive emails https://github.com/consul/consul/pull/2453[m
+[32m+[m[32m- **Maintenance:** Flaky spec fix: Debates Show: "Back" link directs to previous page https://github.com/consul/consul/pull/2513[m
+[32m+[m[32m- **Maintenance:** Fix Exception in home page https://github.com/consul/consul/issues/2621[m
+[32m+[m[32m- **Maintenance:** Fix for budget's index when there are no budgets https://github.com/consul/consul/issues/2562[m
+[32m+[m[32m- **Maintenance:** Fix menu highlighted in admin section https://github.com/consul/consul/issues/2556[m
+[32m+[m
+[32m+[m[32m## [0.14.0](https://github.com/consul/consul/compare/v0.13...v0.14) - 2018-03-08[m
+[32m+[m
+[32m+[m[32m### Added[m
+[32m+[m[32m- Admin newsletter emails https://github.com/consul/consul/pull/2462[m
+[32m+[m[32m- Admin emails list download https://github.com/consul/consul/pull/2466[m
+[32m+[m[32m- Alert message when a user deletes an investment project from "My activity" https://github.com/consul/consul/pull/2385[m
+[32m+[m[32m- Missing polls button on help page https://github.com/consul/consul/pull/2452[m
+[32m+[m[32m- New legislation processes section on help page https://github.com/consul/consul/pull/2452[m
+[32m+[m[32m- Docs\(readme\): Include Node.js as requirement https://github.com/consul/consul/pull/2486[m
+[32m+[m
+[32m+[m[32m### Changed[m
+[32m+[m[32m- Improved Document lists https://github.com/consul/consul/pull/2490[m
+[32m+[m[32m- Valuators cannot reopen finished valuations https://github.com/consul/consul/pull/2518[m
+[32m+[m[32m- Show investment links only on phase balloting or later https://github.com/consul/consul/pull/2386[m
+[32m+[m[32m- Improve Github's Pull Request Template file https://github.com/consul/consul/pull/2515[m
+[32m+[m[32m- List Budget Investment's milestones ordered by publication date https://github.com/consul/consul/issues/2429[m
+[32m+[m[32m- Admin newsletter email refactor https://github.com/consul/consul/pull/2474[m
+[32m+[m[32m- Budgets map improvements https://github.com/consul/consul/pull/2552[m
+[32m+[m
+[32m+[m[32m### Deprecated[m
+[32m+[m[32m- Totally remove investment's internal_comments https://github.com/consul/consul/pull/2406[m
+[32m+[m
+[32m+[m[32m### Fixed[m
+[32m+[m[32m- Fixes social share buttons: https://github.com/consul/consul/pull/2525[m
+[32m+[m[32m- Heading link on budgets message: https://github.com/consul/consul/pull/2528[m
+[32m+[m[32m- Improve spec boot time and clean up of test logs https://github.com/consul/consul/pull/2444[m
+[32m+[m[32m- Use user locale instead of default locale to format currencies https://github.com/consul/consul/pull/2443[m
+[32m+[m[32m- Flaky spec: random investments order scenario https://github.com/consul/consul/pull/2454[m
+[32m+[m[32m- Flaky spec: users without email should not receive emails https://github.com/consul/consul/pull/2453[m
+[32m+[m[32m- Flaky spec: missing comment on legislation annotation https://github.com/consul/consul/pull/2455[m
+[32m+[m[32m- Flaky spec: Residence Assigned officers error https://github.com/consul/consul/pull/2458[m
+[32m+[m[32m- Flaky spec fix: Debates Show: "Back" link directs to previous page https://github.com/consul/consul/pull/2513[m
+[32m+[m[32m- Flaky spec fix: Email Spec comment random failures https://github.com/consul/consul/pull/2506[m
+[32m+[m[32m- Expire Coveralls badge cache https://github.com/consul/consul/pull/2445[m
+[32m+[m[32m- Fixed how newsletters controller and mailer handle recipients https://github.com/consul/consul/pull/2492[m
+[32m+[m[32m- Fix UserSegment feasible and undecided investment authors https://github.com/consul/consul/pull/2491[m
+[32m+[m[32m- Remove empty emails from user segment usages https://github.com/consul/consul/pull/2516[m
+[32m+[m[32m- Clean html and scss legislation proposals: https://github.com/consul/consul/pull/2527[m
+[32m+[m[32m- UI fixes https://github.com/consul/consul/pull/2489 https://github.com/consul/consul/pull/2465[m
+[32m+[m
+[32m+[m[32m## [0.13.0](https://github.com/consul/consul/compare/v0.12...v0.13) - 2018-02-05[m
+[32m+[m
+[32m+[m[32m### Added[m
+[32m+[m[32m- Added Drafting phase to Budgets https://github.com/consul/consul/pull/2285[m
+[32m+[m[32m- Added 'Publish investments price' phase to Budgets https://github.com/consul/consul/pull/2296[m
+[32m+[m[32m- Allow admins to destroy budgets without investments https://github.com/consul/consul/pull/2283[m
+[32m+[m[32m- Added CSV download link to budget_investments https://github.com/consul/consul/pull/2147[m
+[32m+[m[32m- Added actions to edit and delete a budget's headings https://github.com/consul/consul/pull/1917[m
+[32m+[m[32m- Allow Budget Investments to be Related to other content https://github.com/consul/consul/pull/2311[m
+[32m+[m[32m- New Budget::Phase model to add dates, enabling and more https://github.com/consul/consul/pull/2323[m
+[32m+[m[32m- Add optional Guide page to help users decide between Proposal & Investment creation https://github.com/consul/consul/pull/2343[m
+[32m+[m[32m- Add advanced search menu to investments list https://github.com/consul/consul/pull/2142[m
+[32m+[m[32m- Allow admins to edit Budget phases https://github.com/consul/consul/pull/2353[m
+[32m+[m[32m- Budget new Information phase https://github.com/consul/consul/pull/2349[m
+[32m+[m[32m- Add search & sorting options to Admin's Budget Investment list https://github.com/consul/consul/pull/2378[m
+[32m+[m[32m- Added internal valuation comment thread to replace internal_comments https://github.com/consul/consul/pull/2403[m
+[32m+[m[32m- Added rubocop-rspec gem, enabled cops one by one fixing offenses.[m
+[32m+[m[32m- Added Capistrano task to automate maintenance mode https://github.com/consul/consul/pull/1932[m
+[32m+[m
+[32m+[m[32m### Changed[m
+[32m+[m[32m- Display proposal and investment image when sharing in social networks https://github.com/consul/consul/pull/2202[m
+[32m+[m[32m- Redirect admin to budget lists after edit https://github.com/consul/consul/pull/2284[m
+[32m+[m[32m- Improve budget investment form https://github.com/consul/consul/pull/2280[m
+[32m+[m[32m- Prevent edition of investments if budget is in the final phase https://github.com/consul/consul/pull/2223[m
+[32m+[m[32m- Design Improvements https://github.com/consul/consul/pull/2327[m
+[32m+[m[32m- Change concept of current budget to account for multiple budgets https://github.com/consul/consul/pull/2322[m
+[32m+[m[32m- Investment valuation finished alert https://github.com/consul/consul/pull/2324[m
+[32m+[m[32m- Finished budgets list order https://github.com/consul/consul/pull/2355[m
+[32m+[m[32m- Improvements for Admin::Budget::Investment filters https://github.com/consul/consul/pull/2344[m
+[32m+[m[32m- Advanced filters design https://github.com/consul/consul/pull/2379[m
+[32m+[m[32m- Order Budget group headings by name https://github.com/consul/consul/pull/2367[m
+[32m+[m[32m- Show only current budget tags in admin budget page https://github.com/consul/consul/pull/2387[m
+[32m+[m[32m- Correctly show finished budgets at budget index https://github.com/consul/consul/pull/2369[m
+[32m+[m[32m- Multiple Budgets UI improvements https://github.com/consul/consul/pull/2297[m
+[32m+[m[32m- Improved budget heading names at dropdowns https://github.com/consul/consul/pull/2373[m
+[32m+[m[32m- Improved Admin list of budget headings https://github.com/consul/consul/pull/2370[m
+[32m+[m[32m- Remove usage of Investment's internal_comments https://github.com/consul/consul/pull/2404[m
+[32m+[m[32m- Made English the default app locale https://github.com/consul/consul/pull/2371[m
+[32m+[m[32m- Improve texts of help page https://github.com/consul/consul/pull/2405[m
+[32m+[m[32m- Show error message when relating content to itself https://github.com/consul/consul/pull/2416[m
+[32m+[m[32m- Split 'routes.rb' file into multiple small files https://github.com/consul/consul/pull/1908[m
+[32m+[m[32m- Removed legislation section arrows and duplicate html tag thanks to [xarlybovi](https://github.com/xarlybovi) https://github.com/consul/consul/issues/1704[m
+[32m+[m[32m- Updated multiple minor & patch gem versions thanks to [Depfu](https://depfu.com)[m
+[32m+[m[32m- Clean up Travis logs https://github.com/consul/consul/pull/2357[m
+[32m+[m[32m- Updated translations to other languages from Crowdin contributions https://github.com/consul/consul/pull/2347 especial mention to @ferraniki for 100% Valencian translation![m
+[32m+[m[32m- Updated rubocop version and ignored all cops by default[m
+[32m+[m
+[32m+[m[32m### Deprecated[m
+[32m+[m[32m- Budget's `description_*` columns will be erased from database in next release. Please run rake task `budgets:phases:generate_missing` to migrate them. Details at Warning section of https://github.com/consul/consul/pull/2323[m
+[32m+[m[32m- Budget::Investment's `internal_comments` attribute usage was removed, because of https://github.com/consul/consul/pull/2403, run rake task `investments:internal_comments:migrate_to_thread` to migrate existing values to the new internal comments thread. In next release database column will be removed.[m
+[32m+[m
+[32m+[m[32m### Removed[m
+[32m+[m[32m- Spending Proposals urls from sitemap, that model is getting entirely deprecated soon.[m
+[32m+[m
+[32m+[m[32m### Fixed[m
+[32m+[m[32m- Fix Budget Investment's milestones order https://github.com/consul/consul/pull/2431[m
+[32m+[m[32m- Only change budget slugs if its on draft phase https://github.com/consul/consul/pull/2434[m
+[32m+[m[32m- Fixed an internal bug that allowed users to remove documents from other user's Proposals & Investments https://github.com/consul/consul/commit/97ec551178591ea9f59744f53c7aadcaad5e679a#diff-bc7e874fa3fd44e4b6f941b434d1d921[m
+[32m+[m[32m- Fixed deprecation warning in specs https://github.com/consul/consul/pull/2293[m
+[32m+[m[32m- Fix social images meta tags https://github.com/consul/consul/pull/2153[m
+[32m+[m[32m- Non translated strings & typos https://github.com/consul/consul/pull/2279[m
+[32m+[m[32m- Links to hidden comments on admin & moderation https://github.com/consul/consul/pull/2395[m
+[32m+[m
+[32m+[m[32m### Security[m
+[32m+[m[32m- Upgraded Paperclip version up to 5.2.1 to fix security problem https://github.com/consul/consul/pull/2393[m
+[32m+[m[32m- Upgraded nokogiri: 1.8.1 → 1.8.2 https://github.com/consul/consul/pull/2413[m
+[32m+[m
+[32m+[m[32m## [0.12.0](https://github.com/consul/consul/compare/v0.11...v0.12) - 2018-01-03[m
+[32m+[m
+[32m+[m[32m### Added[m
+[32m+[m[32m- Added Images to Budget Investment's Milestones https://github.com/consul/consul/pull/2186[m
+[32m+[m[32m- Added Documents to Budget Investment's Milestones https://github.com/consul/consul/pull/2191[m
+[32m+[m[32m- Added Publication Date Budget Investment's Milestones https://github.com/consul/consul/pull/2188[m
+[32m+[m[32m- New setting `feature.allow_images` to allow upload and show images for both (proposals and budget investment projects). Set it manually through console with `Setting['feature.allow_images'] = true`[m
+[32m+[m[32m- Related Content feature. Now Debates & Proposals can be related https://github.com/consul/consul/issues/1164[m
+[32m+[m[32m- Map validations https://github.com/consul/consul/pull/2207[m
+[32m+[m[32m- Added spec for 'rake db:dev_seed' task https://github.com/consul/consul/pull/2201[m
+[32m+[m[32m- Adds timestamps to polls https://github.com/consul/consul/pull/2180 (Run `rake polls:initialize_timestamps` to initialize attributes created_at and updated_at with the current time for all existing polls, or manually through console set correct values)[m
+[32m+[m
+[32m+[m[32m### Changed[m
+[32m+[m[32m- Some general Design improvements https://github.com/consul/consul/pull/2170 https://github.com/consul/consul/pull/2198[m
+[32m+[m[32m- Improved Communities design https://github.com/consul/consul/pull/1904[m
+[32m+[m[32m- Made Milestones description required & hided title usage https://github.com/consul/consul/pull/2195[m
+[32m+[m[32m- Improved generic error message https://github.com/consul/consul/pull/2217[m
+[32m+[m[32m- Improved Sitemap for SEO https://github.com/consul/consul/pull/2215[m
+[32m+[m
+[32m+[m[32m### Fixed[m
+[32m+[m[32m- Notifications for hidden resources https://github.com/consul/consul/pull/2172[m
+[32m+[m[32m- Notifications exceptions https://github.com/consul/consul/pull/2187[m
+[32m+[m[32m- Fixed map location update https://github.com/consul/consul/pull/2213[m
+[32m+[m
+[32m+[m[32m## [0.11.0](https://github.com/consul/consul/compare/v0.10...v0.11) - 2017-12-05[m
+[32m+[m
+[32m+[m[32m### Added[m
+[32m+[m[32m- Allow social media image meta tags to be overwritten https://github.com/consul/consul/pull/1756 & https://github.com/consul/consul/pull/2153[m
+[32m+[m[32m- Allow users to verify their account against a local Census https://github.com/consul/consul/pull/1752[m
+[32m+[m[32m- Make Proposals & Budgets Investments followable by users https://github.com/consul/consul/pull/1727[m
+[32m+[m[32m- Show user followable activity on public user page https://github.com/consul/consul/pull/1750[m
+[32m+[m[32m- Add Budget results view & table https://github.com/consul/consul/pull/1748[m
+[32m+[m[32m- Improved Budget winners calculations https://github.com/consul/consul/pull/1738[m
+[32m+[m[32m- Allow Documents to be uploaded to Proposals and Budget Investments https://github.com/consul/consul/pull/1809[m
+[32m+[m[32m- Allow Communities creation on Proposals and Budget Investments (Run rake task 'communities:associate_community') https://github.com/consul/consul/pull/1815 https://github.com/consul/consul/pull/1833[m
+[32m+[m[32m- Allow user to geolocate Proposals and Budget Investments on a map https://github.com/consul/consul/pull/1864[m
+[32m+[m[32m- Legislation Process Proposals https://github.com/consul/consul/pull/1906[m
+[32m+[m[32m- Autocomplete user tags https://github.com/consul/consul/pull/1905[m
+[32m+[m[32m- GraphQL API docs https://github.com/consul/consul/pull/1763[m
+[32m+[m[32m- Show recommended proposals and debates to users based in their interests https://github.com/consul/consul/pull/1824[m
+[32m+[m[32m- Allow images & videos to be added to Poll questions https://github.com/consul/consul/pull/1835 https://github.com/consul/consul/pull/1915[m
+[32m+[m[32m- Add Poll Shifts, to soon replace Poll OfficerAssignments usage entirely (for now just partially)[m
+[32m+[m[32m- Added dropdown menu for advanced users https://github.com/consul/consul/pull/1761[m
+[32m+[m[32m- Help text headers and footers https://github.com/consul/consul/pull/1807[m
+[32m+[m[32m- Added a couple of steps for linux installation guidelines https://github.com/consul/consul/pull/1846[m
+[32m+[m[32m- Added TotalResult model, to replace Poll::FinalRecount https://github.com/consul/consul/pull/1866 1885[m
+[32m+[m[32m- Preview Budget Results by admins https://github.com/consul/consul/pull/1923[m
+[32m+[m[32m- Added comments to Polls https://github.com/consul/consul/pull/1961[m
+[32m+[m[32m- Added images & videos to Polls https://github.com/consul/consul/pull/1990 https://github.com/consul/consul/pull/1989[m
+[32m+[m[32m- Poll Answers are orderable now https://github.com/consul/consul/pull/2037[m
+[32m+[m[32m- Poll Booth Assigment management https://github.com/consul/consul/pull/2087[m
+[32m+[m[32m- Legislation processes documents https://github.com/consul/consul/pull/2084[m
+[32m+[m[32m- Poll results https://github.com/consul/consul/pull/2082[m
+[32m+[m[32m- Poll stats https://github.com/consul/consul/pull/2075[m
+[32m+[m[32m- Poll stats on admin panel https://github.com/consul/consul/pull/2102[m
+[32m+[m[32m- Added investment user tags admin interface https://github.com/consul/consul/pull/2068[m
+[32m+[m[32m- Added Poll comments to GraphQL API https://github.com/consul/consul/pull/2148[m
+[32m+[m[32m- Added option to unassign Valuator role https://github.com/consul/consul/pull/2110[m
+[32m+[m[32m- Added search by name/email on several Admin sections https://github.com/consul/consul/pull/2105[m
+[32m+[m[32m- Added Docker support https://github.com/consul/consul/pull/2127 & documentation https://consul_docs.gitbooks.io/docs/content/en/getting_started/docker.html[m
+[32m+[m[32m- Added population restriction validation on Budget Headings https://github.com/consul/consul/pull/2115[m
+[32m+[m[32m- Added a `/consul.json` route that returns installation details (current release version and feature flags status) for a future dashboard app https://github.com/consul/consul/pull/2164[m
+[32m+[m
+[32m+[m[32m### Changed[m
+[32m+[m[32m- Gem versions locked & cleanup https://github.com/consul/consul/pull/1730[m
+[32m+[m[32m- Upgraded many minor versions https://github.com/consul/consul/pull/1747[m
+[32m+[m[32m- Rails 4.2.10 https://github.com/consul/consul/pull/2128[m
+[32m+[m[32m- Updated Code of Conduct to use contributor covenant 1.4  https://github.com/consul/consul/pull/1733[m
+[32m+[m[32m- Improved consistency to all "Go back" buttons https://github.com/consul/consul/pull/1770[m
+[32m+[m[32m- New CONSUL brand https://github.com/consul/consul/pull/1808[m
+[32m+[m[32m- Admin panel redesign https://github.com/consul/consul/pull/1875 https://github.com/consul/consul/pull/2060[m
+[32m+[m[32m- Swapped Poll White/Null/Total Results for Poll Recount https://github.com/consul/consul/pull/1963[m
+[32m+[m[32m- Improved Poll index view https://github.com/consul/consul/pull/1959 https://github.com/consul/consul/pull/1987[m
+[32m+[m[32m- Update secrets and deploy secrets example files https://github.com/consul/consul/pull/1966[m
+[32m+[m[32m- Improved Poll Officer panel features[m
+[32m+[m[32m- Consistency across all admin profiles sections https://github.com/consul/consul/pull/2089[m
+[32m+[m[32m- Improved dev_seeds with more Poll content https://github.com/consul/consul/pull/2121[m
+[32m+[m[32m- Comment count now updates live after publishing a new one https://github.com/consul/consul/pull/2090[m
+[32m+[m
+[32m+[m[32m### Removed[m
+[32m+[m[32m- Removed Tolk gem usage, we've moved to Crowdin service https://github.com/consul/consul/pull/1729[m
+[32m+[m[32m- Removed Polls manual recounts (model Poll::FinalRecount) https://github.com/consul/consul/pull/1764[m
+[32m+[m[32m- Skipped specs for deprecated Spending Proposal model https://github.com/consul/consul/pull/1773[m
+[32m+[m[32m- Moved Documentation to https://github.com/consul/docs https://github.com/consul/consul/pull/1861[m
+[32m+[m[32m- Remove Poll Officer recounts, add Final & Totals votes https://github.com/consul/consul/pull/1919[m
+[32m+[m[32m- Remove deprecated Poll results models https://github.com/consul/consul/pull/1964[m
+[32m+[m[32m- Remove deprecated Poll::Question valid_answers attribute & usage https://github.com/consul/consul/pull/2073 https://github.com/consul/consul/pull/2074[m
+[32m+[m
+[32m+[m[32m### Fixed[m
+[32m+[m[32m- Foundation settings stylesheet https://github.com/consul/consul/pull/1766[m
+[32m+[m[32m- Budget milestone date localization https://github.com/consul/consul/pull/1734[m
+[32m+[m[32m- Return datetime format for en locale https://github.com/consul/consul/pull/1795[m
+[32m+[m[32m- Show bottom proposals button only if proposals exists https://github.com/consul/consul/pull/1798[m
+[32m+[m[32m- Check SMS verification in a more consistent way https://github.com/consul/consul/pull/1832[m
+[32m+[m[32m- Allow only YouTube/Vimeo URLs on 'video_url' attributes https://github.com/consul/consul/pull/1854[m
+[32m+[m[32m- Remove empty comments html https://github.com/consul/consul/pull/1862[m
+[32m+[m[32m- Fixed admin/poll routing errors https://github.com/consul/consul/pull/1863[m
+[32m+[m[32m- Display datepicker arrows https://github.com/consul/consul/pull/1869[m
+[32m+[m[32m- Validate presence poll presence on Poll::Question creation https://github.com/consul/consul/pull/1868[m
+[32m+[m[32m- Switch flag/unflag buttons on use via ajax https://github.com/consul/consul/pull/1883[m
+[32m+[m[32m- Flaky specs fixed https://github.com/consul/consul/pull/1888[m
+[32m+[m[32m- Fixed link back from moderation dashboard to root_path https://github.com/consul/consul/pull/2132[m
+[32m+[m[32m- Fixed Budget random pagination order https://github.com/consul/consul/pull/2131[m
+[32m+[m[32m- Fixed `direct_messages_max_per_day` set to nil https://github.com/consul/consul/pull/2100[m
+[32m+[m[32m- Fixed notification link error when someone commented a Topic https://github.com/consul/consul/pull/2094[m
+[32m+[m[32m- Lots of small UI/UX/SEO/SEM improvements[m
+[32m+[m
+[32m+[m[32m## [0.10.0](https://github.com/consul/consul/compare/v0.9...v0.10) - 2017-07-05[m
+[32m+[m[32m### Added[m
+[32m+[m[32m- Milestones on Budget Investment's[m
+[32m+[m[32m- Feature flag to enable/disable Legislative Processes[m
+[32m+[m[32m- Locale site pages customization[m
+[32m+[m[32m- Incompatible investments[m
+[32m+[m
+[32m+[m[32m### Changed[m
+[32m+[m[32m- Localization files reorganization. Check migration instruction at https://github.com/consul/consul/releases/tag/v0.10[m
+[32m+[m[32m- Rails 4.2.9[m
+[32m+[m
+[32m+[m[32m## [0.9.0](https://github.com/consul/consul/compare/v0.8...v0.9) - 2017-06-15[m
+[32m+[m[32m### Added[m
+[32m+[m[32m- Budgets[m
+[32m+[m[32m- Basic polls[m
+[32m+[m[32m- Collaborative legistlation[m
+[32m+[m[32m- Custom pages[m
+[32m+[m[32m- GraphQL API[m
+[32m+[m[32m- Improved admin section[m
+[32m+[m
+[32m+[m[32m### Changed[m
+[32m+[m[32m- Improved admin section[m
+[32m+[m[32m- Rails 4.2.8[m
+[32m+[m[32m- Ruby 2.3.2[m
+[32m+[m
+[32m+[m[32m### Deprecated[m
+[32m+[m[32m- SpendingProposals are deprecated now in favor of Budgets[m
+[32m+[m
+[32m+[m[32m### Fixed[m
+[32m+[m[32m- CKEditor locale compilation fixed[m
+[32m+[m[32m- Fixed bugs in mobile layouts[m
+[32m+[m
+[32m+[m[32m## [0.8.0](https://github.com/consul/consul/compare/v0.7...v0.8)- 2016-07-21[m
+[32m+[m[32m### Added[m
+[32m+[m[32m- Support for customization schema, vía specific custom files, assets and folders[m
+[32m+[m
+[32m+[m[32m### Changed[m
+[32m+[m[32m- Rails 4.2.7[m
+[32m+[m[32m- Ruby 2.3.1[m
+[32m+[m
+[32m+[m[32m### Fixed[m
+[32m+[m[32m- Fixed bug causing errors on user deletion[m
+[32m+[m
+[32m+[m[32m## [0.7.0] - 2016-04-25[m
+[32m+[m[32m### Added[m
+[32m+[m[32m- Debates[m
+[32m+[m[32m- Proposals[m
+[32m+[m[32m- Basic Spending Proposals[m
+[32m+[m
+[32m+[m[32m### Changed[m
+[32m+[m[32m- Rails 4.2.6[m
+[32m+[m[32m- Ruby 2.2.3[m
+[32m+[m
+[32m+[m[32m[Unreleased]: https://github.com/consul/consul/compare/v0.15...consul:master[m
+[32m+[m[32m[0.15.0]: https://github.com/consul/consul/compare/v0.14...v0.15[m
+[32m+[m[32m[0.14.0]: https://github.com/consul/consul/compare/v0.13...v0.14[m
+[32m+[m[32m[0.13.0]: https://github.com/consul/consul/compare/v0.12...v0.13[m
+[32m+[m[32m[0.12.0]: https://github.com/consul/consul/compare/v0.11...v0.12[m
+[32m+[m[32m[0.11.0]: https://github.com/consul/consul/compare/v0.10...v0.11[m
+[32m+[m[32m[0.10.0]: https://github.com/consul/consul/compare/v0.9...v0.10[m
+[32m+[m[32m[0.9.0]: https://github.com/consul/consul/compare/v0.8...v0.9[m
+[32m+[m[32m[0.8.0]: https://github.com/consul/consul/compare/v0.7...v0.8[m
+[1mdiff --git a/CODE_OF_CONDUCT.md b/CODE_OF_CONDUCT.md[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e4bc6af[m
+[1m--- /dev/null[m
+[1m+++ b/CODE_OF_CONDUCT.md[m
+[36m@@ -0,0 +1,74 @@[m
+[32m+[m[32m# Contributor Covenant Code of Conduct[m
+[32m+[m
+[32m+[m[32m## Our Pledge[m
+[32m+[m
+[32m+[m[32mIn the interest of fostering an open and welcoming environment, we as[m
+[32m+[m[32mcontributors and maintainers pledge to making participation in our project and[m
+[32m+[m[32mour community a harassment-free experience for everyone, regardless of age, body[m
+[32m+[m[32msize, disability, ethnicity, gender identity and expression, level of experience,[m
+[32m+[m[32mnationality, personal appearance, race, religion, or sexual identity and[m
+[32m+[m[32morientation.[m
+[32m+[m
+[32m+[m[32m## Our Standards[m
+[32m+[m
+[32m+[m[32mExamples of behavior that contributes to creating a positive environment[m
+[32m+[m[32minclude:[m
+[32m+[m
+[32m+[m[32m* Using welcoming and inclusive language[m
+[32m+[m[32m* Being respectful of differing viewpoints and experiences[m
+[32m+[m[32m* Gracefully accepting constructive criticism[m
+[32m+[m[32m* Focusing on what is best for the community[m
+[32m+[m[32m* Showing empathy towards other community members[m
+[32m+[m
+[32m+[m[32mExamples of unacceptable behavior by participants include:[m
+[32m+[m
+[32m+[m[32m* The use of sexualized language or imagery and unwelcome sexual attention or[m
+[32m+[m[32madvances[m
+[32m+[m[32m* Trolling, insulting/derogatory comments, and personal or political attacks[m
+[32m+[m[32m* Public or private harassment[m
+[32m+[m[32m* Publishing others' private information, such as a physical or electronic[m
+[32m+[m[32m  address, without explicit permission[m
+[32m+[m[32m* Other conduct which could reasonably be considered inappropriate in a[m
+[32m+[m[32m  professional setting[m
+[32m+[m
+[32m+[m[32m## Our Responsibilities[m
+[32m+[m
+[32m+[m[32mProject maintainers are responsible for clarifying the standards of acceptable[m
+[32m+[m[32mbehavior and are expected to take appropriate and fair corrective action in[m
+[32m+[m[32mresponse to any instances of unacceptable behavior.[m
+[32m+[m
+[32m+[m[32mProject maintainers have the right and responsibility to remove, edit, or[m
+[32m+[m[32mreject comments, commits, code, wiki edits, issues, and other contributions[m
+[32m+[m[32mthat are not aligned to this Code of Conduct, or to ban temporarily or[m
+[32m+[m[32mpermanently any contributor for other behaviors that they deem inappropriate,[m
+[32m+[m[32mthreatening, offensive, or harmful.[m
+[32m+[m
+[32m+[m[32m## Scope[m
+[32m+[m
+[32m+[m[32mThis Code of Conduct applies both within project spaces and in public spaces[m
+[32m+[m[32mwhen an individual is representing the project or its community. Examples of[m
+[32m+[m[32mrepresenting a project or community include using an official project e-mail[m
+[32m+[m[32maddress, posting via an official social media account, or acting as an appointed[m
+[32m+[m[32mrepresentative at an online or offline event. Representation of a project may be[m
+[32m+[m[32mfurther defined and clarified by project maintainers.[m
+[32m+[m
+[32m+[m[32m## Enforcement[m
+[32m+[m
+[32m+[m[32mInstances of abusive, harassing, or otherwise unacceptable behavior may be[m
+[32m+[m[32mreported by contacting the project team at consul@madrid.es. All[m
+[32m+[m[32mcomplaints will be reviewed and investigated and will result in a response that[m
+[32m+[m[32mis deemed necessary and appropriate to the circumstances. The project team is[m
+[32m+[m[32mobligated to maintain confidentiality with regard to the reporte
