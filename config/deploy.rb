@@ -18,8 +18,6 @@ set :ssh_options, port: deploysecret(:ssh_port)
 
 set :repo_url, "https://github.com/txiflis/Sisira.git"
 
-
-
 set :revision, `git rev-parse --short #{fetch(:branch)}`.strip
 
 set :log_level, :info

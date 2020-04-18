@@ -54,8 +54,7 @@ module Consul
       "it"    => "es",
       "pt-BR" => "es"
     }
-
-    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**[^custom]*", "*.{rb,yml}")]
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "custom", "**", "*.{rb,yml}")]
 
     config.after_initialize do

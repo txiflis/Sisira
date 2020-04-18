@@ -31,6 +31,20 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
   config.action_mailer.asset_host = "http://localhost:3000"
 
+
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+      :address              => 'smtp-relay.sendinblue.com',
+      :port                 => 587,
+      :user_name            => 'rayatore@gmail.com',
+      :password             => '6VnF9Gv5Dc73gPIA',
+      :authentication => :plain,
+      :enable_starttls_auto => true,
+      :ssl => false
+  }
+
   # Deliver emails to a development mailbox at /letter_opener
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_caching = false

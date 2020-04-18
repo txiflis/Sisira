@@ -29,6 +29,7 @@ it:
       facebook_login: "Accesso con Facebook"
       google_login: "Accesso con Google"
       signature_sheets: "Fogli firma"
+      spending_proposals: "Proposte di spesa"
       user:
         recommendations: "Raccomandazioni"
       help_page: "Guida"

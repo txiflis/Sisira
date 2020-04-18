@@ -1,5 +1,5 @@
 class TagSanitizer
-  DISALLOWED_STRINGS = %w[? < > = /].freeze
+  DISALLOWED_STRINGS = %w[? < > = /]
 
   def sanitize_tag(tag)
     tag = tag.dup
@@ -16,4 +16,5 @@ class TagSanitizer
   def self.tag_max_length
     160
   end
+
 end

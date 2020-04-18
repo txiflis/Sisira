@@ -1,9 +1,4 @@
 da:
-  attributes:
-    geozone_id: "Projektets omfang"
-    results_enabled: "Vis resultater"
-    stats_enabled: "Vis statistik"
-    advanced_stats_enabled: "Vis avanceret statistik"
   activerecord:
     models:
       activity:
@@ -13,11 +8,11 @@ da:
         one: "Budget"
         other: "Budgetter"
       budget/investment:
-        one: "Projekt"
-        other: "Projekter"
+        one: "Investering"
+        other: "Investeringer"
       milestone:
-        one: "proces"
-        other: "processer"
+        one: "Milepæl"
+        other: "Milepæle"
       milestone/status:
         one: "Status for milepæl"
         other: "Status for milepæle"
@@ -46,7 +41,7 @@ da:
         one: "Evaluator"
         other: "Evaluator"
       valuator_group:
-        one: "Evalueringsgruppe"
+        one: "Evaluator gruppe"
         other: "Evaluatorgruppe"
       manager:
         one: "Manager"
@@ -64,7 +59,7 @@ da:
         one: "valgsted"
         other: "valgsteder"
       poll/officer:
-        one: "valgtilforordnede"
+        one: "ansvarlig medarbejder"
         other: "ansvarlig medarbejdere"
       poll/ballot_sheet:
         one: Stemmeseddel
@@ -72,6 +67,9 @@ da:
       proposal:
         one: "Borgerforslag"
         other: "Borgerforslag"
+      spending_proposal:
+        one: "Investeringsprojekter"
+        other: "Investeringsprojekter"
       site_customization/page:
         one: Brugerdefineret side
         other: Brugerdefinerede sider
@@ -81,9 +79,6 @@ da:
       site_customization/content_block:
         one: Tilpassede indholdsblok
         other: Tilpassede indholdsblokke
-      document:
-        one: Dokument
-        other: Dokumenter
       legislation/process:
         one: "Proces"
         other: "Processer"
@@ -138,8 +133,6 @@ da:
         description_finished: "Synlig beskrivelse, når budgettet er færdiggjort"
         phase: "Fase"
         currency_symbol: "Valuta"
-      budget/translation:
-        name: "Navn"
       budget/investment:
         heading_id: "Overskrift"
         title: "Titel"
@@ -150,19 +143,6 @@ da:
         organization_name: "Hvis du fremsender et forslag på vegne af en gruppe/organisation, angiv navnet på denne"
         image: "Et beskrivende billede"
         image_title: "Titel på billede"
-        duration: "Tidsramme"
-        feasibility_feasible: "Kan gennemføres"
-        feasibility_undecided: "Udefineret"
-        feasibility_unfeasible: "Kan ikke gennemføres"
-        incompatible: "Marker som inkompatibel"
-        milestone_tag_list: "Milepæle"
-        price_explanation: "Forklaring på pris"
-        selected: "Marker som valgt"
-        selected_true: "Valgt"
-        selected_false: "Ikke valgt"
-        unfeasibility_explanation: "Forklaring på om projektet kan gennemføres"
-      budget/investment/translation:
-        description: "Beskrivelse"
       geozone:
         name: Navn
         external_code: "Ekstern kode (valgfri)"
@@ -173,8 +153,6 @@ da:
         title: "Titel"
         description: "Beskrivelse (valgfrit hvis en status er tildelt)"
         publication_date: "Dato for offentliggørelse"
-      milestone/translation:
-        description: "Beskrivelse"
       milestone/status:
         name: "Navn"
         description: "Placering (valgfri)"
@@ -189,8 +167,6 @@ da:
         name: "Titelnavn"
         price: "Pris"
         population: "Population"
-      budget/phase/translation:
-        description: "Beskrivelse"
       comment:
         body: "Kommentar"
         user: "Bruger"
@@ -204,11 +180,7 @@ da:
         title: "Titel"
         question: "Spørgsmål"
         description: "Beskrivelse"
-        selected: "Markeret som valgt"
         terms_of_service: "Servicevilkår"
-      proposal/translation:
-        summary: "Resume af forslag"
-        retired_explanation: "Forklaring"
       user:
         login: "E-mail eller brugernavn"
         email: "E-mail"
@@ -216,21 +188,26 @@ da:
         password_confirmation: "Bekræftelse af adgangskode"
         password: "Adgangskode"
         current_password: "Nuværende adgangskode"
+        phone_number: "Telefonnummer"
         official_position: "Embedsposition"
         official_level: "Embedsniveau"
-        phone_number: "Telefonnummer"
         redeemable_code: "Verifikationskode modtaget via e-mail"
       organization:
         name: "Navn på organisation"
         responsible_name: "Den ansvarlige for gruppen"
+      spending_proposal:
+        administrator_id: "Administrator"
+        association_name: "Navn på forening"
+        description: "Beskrivelse"
+        external_url: "Link til yderligere dokumentation"
+        geozone_id: "Projektets omfang"
+        title: "Titel"
       poll:
         name: "Navn"
         starts_at: "Startdato"
         ends_at: "Slutdato"
         geozone_restricted: "Begrænset af geozone"
         summary: "Resumé"
-        description: "Beskrivelse"
-      active_poll/translation:
         description: "Beskrivelse"
       poll/translation:
         name: "Navn"
@@ -276,8 +253,6 @@ da:
       banner:
         background_color: Baggrundsfarve
         font_color: Skriftfarve
-      banner/translation:
-        description: "Beskrivelse"
       legislation/process:
         title: Titel på proces
         summary: Resumé
@@ -302,7 +277,6 @@ da:
         summary: Resumé
         description: Beskrivelse
         additional_info: Yderligere information
-        homepage: "Beskrivelse"
         milestones_summary: Resumé
       legislation/draft_version:
         title: Titel på version
@@ -323,10 +297,10 @@ da:
         text: Kommentar
       document:
         title: Titel
-        attachment: "Vedhæft fil"
+        attachment: Vedhæft fil
       image:
         title: Titel
-        attachment: "Vedhæft fil"
+        attachment: Vedhæft fil
       poll/question/answer:
         title: Svar
         description: Beskrivelse
@@ -339,7 +313,7 @@ da:
       newsletter:
         segment_recipient: Modtagere
         subject: Emne
-        from: "Fra"
+        from: Fra
         body: Indhold af e-mail
       admin_notification:
         segment_recipient: Modtagere
@@ -380,16 +354,6 @@ da:
       link:
         label: Titel
         url: Link
-      valuator:
-        description: Beskrivelse
-        valuator_group_id: Evaluatorer
-        can_comment: Kan oprette kommentarer
-        can_edit_dossier: Kan redigere projektinformation
-      local_census_record:
-        document_type: Dokumenttype
-        document_number: Dokument nummer
-        date_of_birth: Fødselsdato
-        postal_code: Postnummer
     errors:
       models:
         user:

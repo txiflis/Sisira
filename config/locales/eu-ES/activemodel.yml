@@ -1,4 +1,4 @@
-eu:
+eu-ES:
   activemodel:
     models:
       verification:
@@ -8,15 +8,15 @@ eu:
       verification:
         residence:
           document_type: "Agiri mota"
-          document_number: "Dokumentu zenbakia (letrak barne)"
+          document_number: "Agiri zenbakia (letrak barne)"
           date_of_birth: "Jaiotze data"
           postal_code: "Posta-kodea"
         sms:
           phone: "Telefonoa"
-          confirmation_code: "Konfirmazio kodea"
+          confirmation_code: "Baieztapen kodea"
         email:
-          recipient: "E-mail"
+          recipient: "Emaila"
       officing/residence:
         document_type: "Agiri mota"
-        document_number: "Dokumentu zenbakia (letrak barne)"
+        document_number: "Agiri zenbakia (letrak barne)"
         year_of_birth: "Jaiotako urtea"

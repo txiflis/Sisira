@@ -1,7 +1,8 @@
 class CommentTree
+
   ROOT_COMMENTS_PER_PAGE = 10
 
-  attr_reader :commentable, :page, :order
+  attr_reader :root_comments, :commentable, :page, :order
 
   def initialize(commentable, page, order = "confidence_score", valuations: false)
     @commentable = commentable
