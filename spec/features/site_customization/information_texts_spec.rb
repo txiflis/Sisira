@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe "Custom information texts" do
-
   scenario "Show custom texts instead of default ones" do
     admin = create(:administrator)
     login_as(admin.user)
@@ -30,5 +29,27 @@ describe "Custom information texts" do
       expect(page).to have_content "Custom help about proposals"
       expect(page).not_to have_content "Help about proposals"
     end
+  end
+
+  scenario "Show custom text with options", :js do
+    admin = create(:administrator)
+    user = create(:user, username: "Rachel")
+    create(:budget_investment, author_id: user.id)
+
+    intro_key = "mailers.budget_investment_created.intro"
+    create(:i18n_content, key: intro_key, value_en: "Hi %{author}")
+
+    login_as(admin.user)
+    visit admin_site_customization_information_texts_path(tab: "mailers")
+
+    expect(page).to have_content "Hi %{author}"
+
+    fill_in "contents[content_#{intro_key}]values[value_en]", with: "Custom hi to %{author}"
+    click_button "Save"
+
+    visit admin_system_email_view_path("budget_investment_created")
+
+    expect(page).to have_content "Custom hi to Rachel"
+    expect(page).not_to have_content "%{author}"
   end
 end

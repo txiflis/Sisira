@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe RemoteTranslation do
-
   let(:remote_translation) { build(:remote_translation, locale: :es) }
 
   it "is valid" do
@@ -28,20 +27,19 @@ describe RemoteTranslation do
     expect(remote_translation).not_to be_valid
   end
 
-  describe "#enqueue_remote_translation" do
+  it "is not valid without an available_locales" do
+    remote_translation.locale = "unavailable_locale"
+    expect(remote_translation).not_to be_valid
+  end
 
-    before do
-      Delayed::Worker.delay_jobs = true
-    end
+  it "is not valid when exists a translation for locale" do
+    remote_translation.locale = :en
+    expect(remote_translation).not_to be_valid
+  end
 
-    after do
-      Delayed::Worker.delay_jobs = false
-    end
-
+  describe "#enqueue_remote_translation", :delay_jobs do
     it "after create enqueue Delayed Job" do
       expect { remote_translation.save }.to change { Delayed::Job.count }.by(1)
     end
-
   end
-
 end

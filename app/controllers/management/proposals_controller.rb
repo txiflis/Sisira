@@ -14,7 +14,7 @@ class Management::ProposalsController < Management::BaseController
 
   def create
     @resource = resource_model.new(strong_params.merge(author: current_user,
-                                                       published_at: Time.now))
+                                                       published_at: Time.current))
 
     if @resource.save
       track_event
@@ -37,6 +37,7 @@ class Management::ProposalsController < Management::BaseController
   end
 
   def vote
+    @follow = Follow.find_or_create_by!(user: current_user, followable: @proposal)
     @proposal.register_vote(managed_user, "yes")
     set_proposal_votes(@proposal)
   end
@@ -74,5 +75,4 @@ class Management::ProposalsController < Management::BaseController
     def set_comment_flags(comments)
       @comment_flags = managed_user ? managed_user.comment_flags(comments) : {}
     end
-
 end

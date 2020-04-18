@@ -1,8 +1,4 @@
-shared_examples "documentable" do |documentable_factory_name,
-                                   documentable_path,
-                                   documentable_path_arguments|
-  include ActionView::Helpers
-
+shared_examples "documentable" do |documentable_factory_name, documentable_path, documentable_path_arguments|
   let(:administrator) { create(:user) }
   let(:user)          { create(:user) }
   let(:arguments)     { {} }
@@ -18,7 +14,6 @@ shared_examples "documentable" do |documentable_factory_name,
   end
 
   context "Show documents" do
-
     scenario "Download action should be able to anyone" do
       visit send(documentable_path, arguments)
 
@@ -38,7 +33,6 @@ shared_examples "documentable" do |documentable_factory_name,
     end
 
     describe "Destroy action" do
-
       scenario "Should not be able when no user logged in" do
         visit send(documentable_path, arguments)
 
@@ -65,16 +59,11 @@ shared_examples "documentable" do |documentable_factory_name,
 
         expect(page).not_to have_link("Delete document")
       end
-
     end
 
     describe "When allow attached documents setting is enabled" do
       before do
         Setting["feature.allow_attached_documents"] = true
-      end
-
-      after do
-        Setting["feature.allow_attached_documents"] = false
       end
 
       scenario "Documents list should be available" do
@@ -100,10 +89,6 @@ shared_examples "documentable" do |documentable_factory_name,
         Setting["feature.allow_attached_documents"] = false
       end
 
-      after do
-        Setting["feature.allow_attached_documents"] = true
-      end
-
       scenario "Documents list should not be available" do
         login_as(create(:user))
         visit send(documentable_path, arguments)
@@ -111,11 +96,9 @@ shared_examples "documentable" do |documentable_factory_name,
         expect(page).not_to have_css("#documents")
       end
     end
-
   end
 
   context "Destroy" do
-
     scenario "Should show success notice after successful document upload" do
       login_as documentable.author
 
@@ -149,13 +132,11 @@ shared_examples "documentable" do |documentable_factory_name,
         click_on "Delete document"
       end
 
-      within "##{dom_id(documentable)}" do
+      within "##{ActionView::RecordIdentifier.dom_id(documentable)}" do
         expect(page).to have_selector "h1", text: documentable.title
       end
     end
-
   end
-
 end
 
 def attach_document(path, success = true)

@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe DebatesController do
-
   describe "POST create" do
     before do
       InvisibleCaptcha.timestamp_enabled = false
@@ -24,17 +23,13 @@ describe DebatesController do
       }
       sign_in create(:user)
 
-      post :create, debate: debate_attributes
+      post :create, params: { debate: debate_attributes }
       expect(Ahoy::Event.where(name: :debate_created).count).to eq 1
       expect(Ahoy::Event.last.properties["debate_id"]).to eq Debate.last.id
     end
   end
 
   describe "Vote with too many anonymous votes" do
-    after do
-      Setting["max_ratio_anon_votes_on_debates"] = 50
-    end
-
     it "allows vote if user is allowed" do
       Setting["max_ratio_anon_votes_on_debates"] = 100
       debate = create(:debate)
@@ -53,6 +48,17 @@ describe DebatesController do
       expect do
         post :vote, xhr: true, params: { id: debate.id, value: "yes" }
       end.not_to change { debate.reload.votes_for.size }
+    end
+  end
+
+  describe "PUT mark_featured" do
+    it "ignores query parameters" do
+      debate = create(:debate)
+      sign_in create(:administrator).user
+
+      get :mark_featured, params: { id: debate, controller: "proposals" }
+
+      expect(response).to redirect_to debates_path
     end
   end
 end

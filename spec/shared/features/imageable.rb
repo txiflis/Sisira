@@ -1,8 +1,4 @@
 shared_examples "imageable" do |imageable_factory_name, imageable_path, imageable_path_arguments|
-  include ActionView::Helpers
-  include ImagesHelper
-  include ImageablesHelper
-
   let!(:administrator)          { create(:user) }
   let!(:user)                   { create(:user) }
   let!(:imageable_arguments)    { {} }
@@ -19,7 +15,6 @@ shared_examples "imageable" do |imageable_factory_name, imageable_path, imageabl
   end
 
   context "Show" do
-
     scenario "Show descriptive image when exists", :js do
       image = create(:image, imageable: imageable)
 
@@ -35,7 +30,6 @@ shared_examples "imageable" do |imageable_factory_name, imageable_path, imageabl
 
       expect(page).to have_content image.title
     end
-
   end
 end
 

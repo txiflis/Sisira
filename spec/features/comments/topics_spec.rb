@@ -1,5 +1,4 @@
 require "rails_helper"
-include ActionView::Helpers::DateHelper
 
 describe "Commenting topics from proposals" do
   let(:user)     { create :user }
@@ -173,7 +172,7 @@ describe "Commenting topics from proposals" do
     community = proposal.community
     topic = create(:topic, community: community)
     per_page = 10
-    (per_page + 2).times { create(:comment, commentable: topic)}
+    (per_page + 2).times { create(:comment, commentable: topic) }
 
     visit community_topic_path(community, topic)
 
@@ -196,7 +195,7 @@ describe "Commenting topics from proposals" do
 
       visit community_topic_path(community, topic)
 
-      expect(page).to have_content "You must Sign in or Sign up to leave a comment"
+      expect(page).to have_content "You must sign in or sign up to leave a comment"
       within("#comments") do
         expect(page).not_to have_content "Write a comment"
         expect(page).not_to have_content "Reply"
@@ -205,9 +204,10 @@ describe "Commenting topics from proposals" do
   end
 
   scenario "Create", :js do
-    login_as(user)
     community = proposal.community
     topic = create(:topic, community: community)
+
+    login_as(user)
     visit community_topic_path(community, topic)
 
     fill_in "comment-body-topic_#{topic.id}", with: "Have you thought about...?"
@@ -223,9 +223,10 @@ describe "Commenting topics from proposals" do
   end
 
   scenario "Errors on create", :js do
-    login_as(user)
     community = proposal.community
     topic = create(:topic, community: community)
+
+    login_as(user)
     visit community_topic_path(community, topic)
 
     click_button "Publish comment"
@@ -271,7 +272,6 @@ describe "Commenting topics from proposals" do
       click_button "Publish reply"
       expect(page).to have_content "Can't be blank"
     end
-
   end
 
   scenario "N replies", :js do
@@ -326,8 +326,6 @@ describe "Commenting topics from proposals" do
   end
 
   scenario "Flagging turbolinks sanity check", :js do
-    Setting["feature.community"] = true
-
     community = proposal.community
     topic = create(:topic, community: community, title: "Should we change the world?")
     comment = create(:comment, commentable: topic)
@@ -340,8 +338,6 @@ describe "Commenting topics from proposals" do
       page.find("#flag-expand-comment-#{comment.id}").click
       expect(page).to have_selector("#flag-comment-#{comment.id}")
     end
-
-    Setting["feature.community"] = nil
   end
 
   scenario "Erasing a comment's author" do
@@ -483,23 +479,23 @@ describe "Commenting topics from proposals" do
   end
 
   describe "Voting comments" do
-    before do
-      @manuela = create(:user, verified_at: Time.current)
-      @pablo = create(:user)
-      @proposal = create(:proposal)
-      @topic = create(:topic, community: @proposal.community)
-      @comment = create(:comment, commentable: @topic)
+    let(:verified)   { create(:user, verified_at: Time.current) }
+    let(:unverified) { create(:user) }
+    let(:proposal)   { create(:proposal) }
+    let(:topic)      { create(:topic, community: proposal.community) }
+    let!(:comment)   { create(:comment, commentable: topic) }
 
-      login_as(@manuela)
+    before do
+      login_as(verified)
     end
 
     scenario "Show" do
-      create(:vote, voter: @manuela, votable: @comment, vote_flag: true)
-      create(:vote, voter: @pablo, votable: @comment, vote_flag: false)
+      create(:vote, voter: verified, votable: comment, vote_flag: true)
+      create(:vote, voter: unverified, votable: comment, vote_flag: false)
 
-      visit community_topic_path(@proposal.community, @topic)
+      visit community_topic_path(proposal.community, topic)
 
-      within("#comment_#{@comment.id}_votes") do
+      within("#comment_#{comment.id}_votes") do
         within(".in_favor") do
           expect(page).to have_content "1"
         end
@@ -513,9 +509,9 @@ describe "Commenting topics from proposals" do
     end
 
     scenario "Create", :js do
-      visit community_topic_path(@proposal.community, @topic)
+      visit community_topic_path(proposal.community, topic)
 
-      within("#comment_#{@comment.id}_votes") do
+      within("#comment_#{comment.id}_votes") do
         find(".in_favor a").click
 
         within(".in_favor") do
@@ -531,9 +527,9 @@ describe "Commenting topics from proposals" do
     end
 
     scenario "Update", :js do
-      visit community_topic_path(@proposal.community, @topic)
+      visit community_topic_path(proposal.community, topic)
 
-      within("#comment_#{@comment.id}_votes") do
+      within("#comment_#{comment.id}_votes") do
         find(".in_favor a").click
 
         within(".in_favor") do
@@ -555,9 +551,9 @@ describe "Commenting topics from proposals" do
     end
 
     scenario "Trying to vote multiple times", :js do
-      visit community_topic_path(@proposal.community, @topic)
+      visit community_topic_path(proposal.community, topic)
 
-      within("#comment_#{@comment.id}_votes") do
+      within("#comment_#{comment.id}_votes") do
         find(".in_favor a").click
         find(".in_favor a").click
 
@@ -573,7 +569,6 @@ describe "Commenting topics from proposals" do
       end
     end
   end
-
 end
 
 describe "Commenting topics from budget investments" do
@@ -726,7 +721,7 @@ describe "Commenting topics from budget investments" do
     community = investment.community
     topic = create(:topic, community: community)
     per_page = 10
-    (per_page + 2).times { create(:comment, commentable: topic)}
+    (per_page + 2).times { create(:comment, commentable: topic) }
 
     visit community_topic_path(community, topic)
 
@@ -749,7 +744,7 @@ describe "Commenting topics from budget investments" do
 
       visit community_topic_path(community, topic)
 
-      expect(page).to have_content "You must Sign in or Sign up to leave a comment"
+      expect(page).to have_content "You must sign in or sign up to leave a comment"
       within("#comments") do
         expect(page).not_to have_content "Write a comment"
         expect(page).not_to have_content "Reply"
@@ -758,9 +753,10 @@ describe "Commenting topics from budget investments" do
   end
 
   scenario "Create", :js do
-    login_as(user)
     community = investment.community
     topic = create(:topic, community: community)
+
+    login_as(user)
     visit community_topic_path(community, topic)
 
     fill_in "comment-body-topic_#{topic.id}", with: "Have you thought about...?"
@@ -776,9 +772,10 @@ describe "Commenting topics from budget investments" do
   end
 
   scenario "Errors on create", :js do
-    login_as(user)
     community = investment.community
     topic = create(:topic, community: community)
+
+    login_as(user)
     visit community_topic_path(community, topic)
 
     click_button "Publish comment"
@@ -824,7 +821,6 @@ describe "Commenting topics from budget investments" do
       click_button "Publish reply"
       expect(page).to have_content "Can't be blank"
     end
-
   end
 
   scenario "N replies", :js do
@@ -879,8 +875,6 @@ describe "Commenting topics from budget investments" do
   end
 
   scenario "Flagging turbolinks sanity check", :js do
-    Setting["feature.community"] = true
-
     community = investment.community
     topic = create(:topic, community: community, title: "Should we change the world?")
     comment = create(:comment, commentable: topic)
@@ -893,8 +887,6 @@ describe "Commenting topics from budget investments" do
       page.find("#flag-expand-comment-#{comment.id}").click
       expect(page).to have_selector("#flag-comment-#{comment.id}")
     end
-
-    Setting["feature.community"] = nil
   end
 
   scenario "Erasing a comment's author" do
@@ -1036,23 +1028,23 @@ describe "Commenting topics from budget investments" do
   end
 
   describe "Voting comments" do
-    before do
-      @manuela = create(:user, verified_at: Time.current)
-      @pablo = create(:user)
-      @investment = create(:budget_investment)
-      @topic = create(:topic, community: @investment.community)
-      @comment = create(:comment, commentable: @topic)
+    let(:verified)   { create(:user, verified_at: Time.current) }
+    let(:unverified) { create(:user) }
+    let(:investment) { create(:budget_investment) }
+    let(:topic)      { create(:topic, community: investment.community) }
+    let!(:comment)   { create(:comment, commentable: topic) }
 
-      login_as(@manuela)
+    before do
+      login_as(verified)
     end
 
     scenario "Show" do
-      create(:vote, voter: @manuela, votable: @comment, vote_flag: true)
-      create(:vote, voter: @pablo, votable: @comment, vote_flag: false)
+      create(:vote, voter: verified, votable: comment, vote_flag: true)
+      create(:vote, voter: unverified, votable: comment, vote_flag: false)
 
-      visit community_topic_path(@investment.community, @topic)
+      visit community_topic_path(investment.community, topic)
 
-      within("#comment_#{@comment.id}_votes") do
+      within("#comment_#{comment.id}_votes") do
         within(".in_favor") do
           expect(page).to have_content "1"
         end
@@ -1066,9 +1058,9 @@ describe "Commenting topics from budget investments" do
     end
 
     scenario "Create", :js do
-      visit community_topic_path(@investment.community, @topic)
+      visit community_topic_path(investment.community, topic)
 
-      within("#comment_#{@comment.id}_votes") do
+      within("#comment_#{comment.id}_votes") do
         find(".in_favor a").click
 
         within(".in_favor") do
@@ -1084,9 +1076,9 @@ describe "Commenting topics from budget investments" do
     end
 
     scenario "Update", :js do
-      visit community_topic_path(@investment.community, @topic)
+      visit community_topic_path(investment.community, topic)
 
-      within("#comment_#{@comment.id}_votes") do
+      within("#comment_#{comment.id}_votes") do
         find(".in_favor a").click
 
         within(".in_favor") do
@@ -1108,9 +1100,9 @@ describe "Commenting topics from budget investments" do
     end
 
     scenario "Trying to vote multiple times", :js do
-      visit community_topic_path(@investment.community, @topic)
+      visit community_topic_path(investment.community, topic)
 
-      within("#comment_#{@comment.id}_votes") do
+      within("#comment_#{comment.id}_votes") do
         find(".in_favor a").click
         find(".in_favor a").click
 
@@ -1126,5 +1118,4 @@ describe "Commenting topics from budget investments" do
       end
     end
   end
-
 end

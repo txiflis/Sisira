@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe "Incomplete verifications" do
-
   before do
     admin = create(:administrator)
     login_as(admin.user)
@@ -22,9 +21,9 @@ describe "Incomplete verifications" do
   end
 
   scenario "Search" do
-    verified_user = create(:user, :level_two, username: "Juan Carlos")
-    unverified_user = create(:user, :incomplete_verification, username: "Juan_anonymous")
-    unverified_user = create(:user, :incomplete_verification, username: "Isabel_anonymous")
+    create(:user, :level_two, username: "Juan Carlos")
+    create(:user, :incomplete_verification, username: "Juan_anonymous")
+    create(:user, :incomplete_verification, username: "Isabel_anonymous")
 
     visit admin_verifications_path
 
@@ -38,12 +37,13 @@ describe "Incomplete verifications" do
 
   scenario "Residence unverified" do
     incompletely_verified_user = create(:user, :incomplete_verification)
+    failed_census_call = incompletely_verified_user.failed_census_calls.first
 
     visit admin_verifications_path
 
     within "#user_#{incompletely_verified_user.id}" do
       expect(page).to have_content "DNI"
-      expect(page).to have_content incompletely_verified_user.document_number
+      expect(page).to have_content failed_census_call.document_number
       expect(page).to have_content Date.new(1900, 1, 1)
       expect(page).to have_content "28000"
     end
@@ -71,5 +71,4 @@ describe "Incomplete verifications" do
       expect(page).to have_content "Has not confirmed the sms code"
     end
   end
-
 end
