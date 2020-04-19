@@ -14,7 +14,7 @@ module Consul
     #config.i18n.default_locale = :en
     #config.i18n.available_locales = [:en, :es, :fr, :nl, 'pt-BR']
 
-    config.i18n.fallbacks = {'eu-ES' => 'en'}
+    config.i18n.fallbacks = {'eu' => 'es'}
 
    
   end
