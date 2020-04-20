@@ -79,8 +79,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       :address              => 'smtp.eu.mailgun.org',
       :port                 => 587,
-      :user_name            => 'postmaster@sisira.eus',
-      :password             => '3aaa89c88777569c9bb95bf65a2ec15d-915161b7-5ee64a04',
+      :user_name            => 'info@sisira.eus',
+      :password             => '030f1879c030fdfc92e6437652b7c34f-f135b0f1-1c185628',
       :authentication => :plain,
       :enable_starttls_auto => true,
       :ssl => false
