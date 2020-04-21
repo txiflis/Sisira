@@ -73,21 +73,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: Rails.application.secrets.server_name }
   config.action_mailer.asset_host = "https://#{Rails.application.secrets.server_name}"
 
-
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.smtp_settings = {
-      :address              => 'smtp.eu.mailgun.org',
-      :port                 => 587,
-      :user_name            => 'info@sisira.eus',
-      :password             => '030f1879c030fdfc92e6437652b7c34f-f135b0f1-1c185628',
-      :authentication => :plain,
-      :enable_starttls_auto => true,
-      :ssl => false
-  }
-
-
-
   # Configure your SMTP service credentials in secrets.yml
   if Rails.application.secrets.smtp_settings
     config.action_mailer.delivery_method = Rails.application.secrets.mailer_delivery_method || :smtp
