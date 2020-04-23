@@ -23,7 +23,7 @@ eu:
         hello: Kaixo
         ignore_text: Zuk ez baduzu eskatu, email hau ez ikusiarena egin.
         info_text: Zure pasahitza ez da aldatuko loturan sartu eta aldatu arte.
-        text: 'Zure pasahitza aldatzea eskatu da, hurrengo loturan egin dezakzu:'
+        text: 'Zure pasahitza aldatzea eskatu da, hurrengo loturan egin dezakezu:'
         title: Zure pasahitza aldatu
       unlock_instructions:
         hello: Kaixo
